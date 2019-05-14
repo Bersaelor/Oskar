@@ -174,6 +174,11 @@ extension NodeManager: ARSessionDelegate {
         
         updateLight(lightEstimate: lightEstimate)
         
+        for anchor in session.currentFrame?.anchors ?? [] {
+            guard let faceAnchor = anchor as? ARFaceAnchor else { continue }
+            contentUpdater.isFaceInView = faceAnchor.isTracked
+        }
+        
         glassesNode?.lightIntensity = max(0.0, min(1.0, lightEstimate.ambientIntensity / 1000.0))
         
         updateFaceDirection()

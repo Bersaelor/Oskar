@@ -48,6 +48,7 @@ class VirtualContentUpdater: NSObject {
     var isFaceInView: Bool = false {
         didSet {
             guard oldValue != isFaceInView else { return }
+            log.debug("\(oldValue) -> \(isFaceInView)")
             updateMaskParentNode()
         }
     }
@@ -59,8 +60,7 @@ class VirtualContentUpdater: NSObject {
     /// - Tag: FaceContentSetup
     private func updateMaskParentNode(suppressAnimations: Bool = false) {
         guard let currentMask = virtualFaceNode else { log.warning("No currentContent yet"); return }
-        guard let index = getIndexOfMask(currentMask),
-            let newParent = isFaceInView ? faceNode : exhibitionNodes[index] else {
+        guard let newParent = faceNode else {
             log.warning("no facenode to put the glasses on available yet")
             return
         }
@@ -92,10 +92,6 @@ class VirtualContentUpdater: NSObject {
                 log.verbose("Putting \(child.name ?? "?") back into \(exhibitionNodes[index].name ?? "?")")
                 exhibitionNodes[index].addChildNode(child)
             }
-        }
-        for child in exhibitionNodes[index].childNodes {
-            log.verbose("Removing \(child.name ?? "?") from \(exhibitionNodes[index].name ?? "?")")
-            child.removeFromParentNode()
         }
         
         // animate glasses on/off head movement
@@ -132,7 +128,7 @@ extension VirtualContentUpdater: ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let faceAnchor = anchor as? ARFaceAnchor else { return }
-        log.debug("faceAnchor: \(faceAnchor)")
+
         virtualFaceNode?.update(withFaceAnchor: faceAnchor)
 
         latestFaceGeometry = faceAnchor.geometry // 1220 vertices always
