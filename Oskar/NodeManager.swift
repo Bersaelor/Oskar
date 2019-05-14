@@ -29,9 +29,9 @@ class NodeManager: NSObject {
     
     var faceDetectionChanged: () -> Void = { }
     
-    private var omniLight: SCNLight?
+    private var spotLight: SCNLight?
     private var ambientLight: SCNLight?
-    private var omniLightNode: SCNNode?
+    private var spotLightNode: SCNNode?
     private var ambientLightNode: SCNNode?
 
     private var scene: SCNScene? {
@@ -73,11 +73,12 @@ class NodeManager: NSObject {
         sceneView.autoenablesDefaultLighting = false
         sceneView.scene.lightingEnvironment.contents = UIImage(named: "art.scnassets/lobby.jpg")
         sceneView.scene.lightingEnvironment.intensity = 2.0
-        setupSpotLight(position: SCNVector3(0, 3, 0))
-        setupAmbientLight(position: SCNVector3(0, 3, 0))
         pointOfView = sceneView.pointOfView
         contentUpdater.createExhibitionNodes(from: pointOfView)
-        pointOfView?.addChildNode(wallNode)
+        setupWall()
+        setupSpotLight(position: SCNVector3(0, 3, 0))
+        setupAmbientLight(position: SCNVector3(0, 3, 0))
+        staticLight()
     }
 
     private func set(mask: MaskModel?) {
@@ -86,21 +87,22 @@ class NodeManager: NSObject {
     }
     
     private func setupSpotLight(position: SCNVector3) {
-        omniLight = SCNLight()
-        omniLight?.type = SCNLight.LightType.omni
-        //        spotLight?.spotInnerAngle = 45
-        //        spotLight?.spotOuterAngle = 45
+        spotLight = SCNLight()
+        spotLight?.type = SCNLight.LightType.spot
+        spotLight?.castsShadow = true
+        spotLight?.spotInnerAngle = 0
+        spotLight?.spotOuterAngle = 60
         
         let spotNode = SCNNode()
-        spotNode.light = omniLight
+        spotNode.light = spotLight
         spotNode.position = position
         
         // By default the stop light points directly down the negative
         // z-axis, we want to shine it down so rotate 90deg around the
         // x-axis to point it down
         spotNode.eulerAngles = SCNVector3(-Float.pi/2, 0, 0)
-        rootNode?.addChildNode(spotNode)
-        omniLightNode = spotNode
+        pointOfView?.addChildNode(spotNode)
+        spotLightNode = spotNode
     }
     
     private func setupAmbientLight(position: SCNVector3) {
@@ -113,36 +115,59 @@ class NodeManager: NSObject {
         lightNode.eulerAngles = SCNVector3(-Float.pi/2, 0, 0)
         
         if rootNode == nil { log.warning("rootNode shouldn't be nil at this point!") }
-        rootNode?.addChildNode(lightNode)
+        pointOfView?.addChildNode(lightNode)
         ambientLightNode = lightNode
     }
     
     private func updateLight(lightEstimate: ARLightEstimate) {
         scene?.lightingEnvironment.intensity = 2 * lightEstimate.ambientIntensity / 1000.0
-        [ambientLight, omniLight].forEach { (light) in
+        [ambientLight, spotLight].forEach { (light) in
             light?.temperature = lightEstimate.ambientColorTemperature
         }
         ambientLight?.intensity = lightEstimate.ambientIntensity / 3
         
         guard let directionalLightEstimate = lightEstimate as? ARDirectionalLightEstimate else {
             // usually ambientColorTemperature is about twice as big as primaryLightIntensity
-            omniLight?.intensity = lightEstimate.ambientIntensity / 4
+            spotLight?.intensity = lightEstimate.ambientIntensity / 4
             return
         }
 
-        omniLight?.intensity = directionalLightEstimate.primaryLightIntensity / 8
-        omniLightNode?.position = SCNVector3(directionalLightEstimate.primaryLightDirection.x,
+        spotLight?.intensity = directionalLightEstimate.primaryLightIntensity / 8
+        spotLightNode?.position = SCNVector3(directionalLightEstimate.primaryLightDirection.x,
                                              directionalLightEstimate.primaryLightDirection.y,
                                              directionalLightEstimate.primaryLightDirection.z) * -4
     }
     
     private func staticLight() {
         scene?.lightingEnvironment.intensity = 2 * 495.23 / 1000.0
-        [ambientLight, omniLight].forEach { $0?.temperature = 6019.88 }
-        ambientLight?.intensity = 495.23 / 3
+        [ambientLight, spotLight].forEach { $0?.temperature = 6019.88 }
+        ambientLight?.intensity = 500
         
-        omniLight?.intensity = 2668 / 8
-        omniLightNode?.position = SCNVector3(-0.99288374, -0.08264515, -0.08574253) * -4
+        spotLight?.intensity = 1368
+        spotLightNode?.position = SCNVector3(0, 2, -0.5)
+        spotLightNode?.eulerAngles = SCNVector3(-45 * Float.pi / 180, 0, 0)
+    }
+    
+    private func setupWall() {
+        wallNode.position = SCNVector3(x: 0, y: -1, z: 2)
+        pointOfView?.addChildNode(wallNode)
+        
+        let material = SCNMaterial()
+        material.lightingModel = .physicallyBased
+        material.metalness.contents = 0.0
+        material.diffuse.contents = UIColor.init(white: 0.99, alpha: 1.0)
+        material.roughness.contents = 0.5
+        material.normal.contents = UIImage(named: "art.scnassets/plastic-normal_smooth.jpg")
+        material.normal.contentsTransform = SCNMatrix4MakeScale(0.001, 0.001, 0.001)
+        wallNode.geometry?.materials = [material]
+        
+        let block = SCNNode(geometry: SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0.001))
+        block.position = SCNVector3(0, -0.2, 0)
+        pointOfView?.addChildNode(block)
+        
+        let moveAction = SCNAction.move(by: SCNVector3(x: 0, y: 0, z: 1), duration: 2)
+        let moveBack = moveAction.reversed()
+        block.runAction(SCNAction.repeatForever(SCNAction.sequence([moveAction, moveBack])))
     }
     
     func createFaceGeometry() {
@@ -187,8 +212,6 @@ class NodeManager: NSObject {
 // MARK: - ARSessionDelegate
 extension NodeManager: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        staticLight()
-        
         for anchor in session.currentFrame?.anchors ?? [] {
             guard let faceAnchor = anchor as? ARFaceAnchor else { continue }
             contentUpdater.isFaceInView = faceAnchor.isTracked
