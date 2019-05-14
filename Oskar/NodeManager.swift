@@ -14,8 +14,14 @@ class NodeManager: NSObject {
     
     let contentUpdater = VirtualContentUpdater()
 
+    private static let wallReferenceNode = SCNNode.loadedContentForAsset(named: "wall", fileExtension: "dae")
+
+    private lazy var wallNode: SCNNode = {
+        return NodeManager.wallReferenceNode.childNode(withName: "Wall", recursively: true)!
+    }()
+
     private var models: [MaskModel]
-    private  var nodeForMaskModel = [MaskModel: VirtualFaceNode]()
+    private var nodeForMaskModel = [MaskModel: VirtualFaceNode]()
 
     var glassesNode: GlassesNode? {
         return contentUpdater.virtualFaceNode as? GlassesNode
@@ -71,6 +77,7 @@ class NodeManager: NSObject {
         setupAmbientLight(position: SCNVector3(0, 3, 0))
         pointOfView = sceneView.pointOfView
         contentUpdater.createExhibitionNodes(from: pointOfView)
+        pointOfView?.addChildNode(wallNode)
     }
 
     private func set(mask: MaskModel?) {
@@ -122,11 +129,20 @@ class NodeManager: NSObject {
             omniLight?.intensity = lightEstimate.ambientIntensity / 4
             return
         }
-                
+
         omniLight?.intensity = directionalLightEstimate.primaryLightIntensity / 8
         omniLightNode?.position = SCNVector3(directionalLightEstimate.primaryLightDirection.x,
                                              directionalLightEstimate.primaryLightDirection.y,
                                              directionalLightEstimate.primaryLightDirection.z) * -4
+    }
+    
+    private func staticLight() {
+        scene?.lightingEnvironment.intensity = 2 * 495.23 / 1000.0
+        [ambientLight, omniLight].forEach { $0?.temperature = 6019.88 }
+        ambientLight?.intensity = 495.23 / 3
+        
+        omniLight?.intensity = 2668 / 8
+        omniLightNode?.position = SCNVector3(-0.99288374, -0.08264515, -0.08574253) * -4
     }
     
     func createFaceGeometry() {
@@ -171,16 +187,12 @@ class NodeManager: NSObject {
 // MARK: - ARSessionDelegate
 extension NodeManager: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        guard let lightEstimate = session.currentFrame?.lightEstimate  else { return }
-        
-        updateLight(lightEstimate: lightEstimate)
+        staticLight()
         
         for anchor in session.currentFrame?.anchors ?? [] {
             guard let faceAnchor = anchor as? ARFaceAnchor else { continue }
             contentUpdater.isFaceInView = faceAnchor.isTracked
         }
-        
-        glassesNode?.lightIntensity = max(0.0, min(1.0, lightEstimate.ambientIntensity / 1000.0))
         
         updateFaceDirection()
     }

@@ -136,13 +136,7 @@
 				71585517228AE049005B6618 /* ViewController.swift */,
 				71585529228AE33A005B6618 /* ViewModel.swift */,
 				71585527228AE314005B6618 /* NodeManager.swift */,
-				71585531228AE4E1005B6618 /* FaceMeshNode.swift */,
-				71585534228AE500005B6618 /* VirtualContentUpdater.swift */,
-				71585536228AE53F005B6618 /* VirtualFaceContent.swift */,
-				71585538228AE55B005B6618 /* GlassesNode.swift */,
-				71585551228AEFFC005B6618 /* TempleMode.swift */,
-				71585553228AF013005B6618 /* GlassesPosition.swift */,
-				71585555228AF0C3005B6618 /* LoadPlist.swift */,
+				7158555D228B19C6005B6618 /* Virtual Face Content */,
 				7158553E228AE777005B6618 /* Model */,
 				71585533228AE4E7005B6618 /* Extensions */,
 				71585519228AE049005B6618 /* Main.storyboard */,
@@ -183,6 +177,20 @@
 				71585543228AE9D9005B6618 /* PlasticColor.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7158555D228B19C6005B6618 /* Virtual Face Content */ = {
+			isa = PBXGroup;
+			children = (
+				71585534228AE500005B6618 /* VirtualContentUpdater.swift */,
+				71585536228AE53F005B6618 /* VirtualFaceContent.swift */,
+				71585531228AE4E1005B6618 /* FaceMeshNode.swift */,
+				71585538228AE55B005B6618 /* GlassesNode.swift */,
+				71585551228AEFFC005B6618 /* TempleMode.swift */,
+				71585553228AF013005B6618 /* GlassesPosition.swift */,
+				71585555228AF0C3005B6618 /* LoadPlist.swift */,
+			);
+			path = "Virtual Face Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
