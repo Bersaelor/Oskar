@@ -70,6 +70,7 @@ class NodeManager: NSObject {
         setupSpotLight(position: SCNVector3(0, 3, 0))
         setupAmbientLight(position: SCNVector3(0, 3, 0))
         pointOfView = sceneView.pointOfView
+        contentUpdater.createExhibitionNodes(from: pointOfView)
     }
 
     private func set(mask: MaskModel?) {
@@ -210,6 +211,5 @@ extension NodeManager: ARSessionDelegate {
         let forwardInCamSpace = pointOfView.convertVector(faceForward, from: nil)
         
         updateHeadDirection(forwardInCamSpace.x < 0)
-        
     }
 }

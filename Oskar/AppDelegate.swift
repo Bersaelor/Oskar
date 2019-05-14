@@ -10,6 +10,7 @@ import UIKit
 import SwiftyBeaver
 
 let log = SwiftyBeaver.self
+let oniPad = UIDevice.current.userInterfaceIdiom == .pad
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

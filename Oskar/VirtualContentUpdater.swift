@@ -10,8 +10,6 @@ import ARKit
 
 class VirtualContentUpdater: NSObject {
     
-    var latestFaceGeometry: ARFaceGeometry?
-    
     // MARK: Configuration Properties
     
     /**
@@ -52,7 +50,7 @@ class VirtualContentUpdater: NSObject {
             updateMaskParentNode()
         }
     }
-    
+        
     private var lastRandomAngle: CGFloat?
         
     private let serialQueue = DispatchQueue(label: "com.example.apple-samplecode.ARKitFaceExample.serialSceneKitQueue")
@@ -60,7 +58,7 @@ class VirtualContentUpdater: NSObject {
     /// - Tag: FaceContentSetup
     private func updateMaskParentNode(suppressAnimations: Bool = false) {
         guard let currentMask = virtualFaceNode else { log.warning("No currentContent yet"); return }
-        guard let newParent = faceNode else {
+        guard let newParent = mainExhibitionNode else {
             log.warning("no facenode to put the glasses on available yet")
             return
         }
@@ -130,8 +128,11 @@ extension VirtualContentUpdater: ARSCNViewDelegate {
         guard let faceAnchor = anchor as? ARFaceAnchor else { return }
 
         virtualFaceNode?.update(withFaceAnchor: faceAnchor)
-
-        latestFaceGeometry = faceAnchor.geometry // 1220 vertices always
+        // force faceNode to always be at the same position
+        
+        guard let faceNode = faceNode else { return }
+        
+        virtualFaceNode?.eulerAngles = faceNode.eulerAngles
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
@@ -143,28 +144,11 @@ extension VirtualContentUpdater: ARSCNViewDelegate {
 
 extension VirtualContentUpdater {
     
-    private func animateCentralNodeRotation() {
-        let angle: CGFloat
-        if let lastAngle = lastRandomAngle {
-            angle = lastAngle + CGFloat.pi + CGFloat.random(in: 0 ... 0.8)
-        } else {
-            angle = CGFloat.random(in: (0 ..< 2 * CGFloat.pi))
-        }
-        lastRandomAngle = angle
-        
-        let circleVec = CGPoint(x: 0.35, y: 0).rotated(angle)
-        let rotateAction = SCNAction.rotateTo(x: circleVec.x,
-                                              y: circleVec.y,
-                                              z: 0,
-                                              duration: 4, usesShortestUnitArc: true)
-        rotateAction.timingFunction = { time in
-            return simd_smoothstep(0, 1, time)
-        }
-        exhibitionNodes.first?.runAction(rotateAction) { [weak self] in
-            self?.animateCentralNodeRotation()
-        }
-        exhibitionNodes.dropFirst().forEach { (node) in
-            node.runAction(rotateAction)
-        }
+    func createExhibitionNodes(from pointOfView: SCNNode?) {
+        let node = SCNNode()
+        node.name = "ViewCenter"
+        node.position = SCNVector3(0, 0, oniPad ? -0.3 : -0.4)
+        pointOfView?.addChildNode(node)
+        mainExhibitionNode = node
     }
 }
