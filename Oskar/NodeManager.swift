@@ -39,10 +39,8 @@ class NodeManager: NSObject {
     var errorHandler: (Error) -> Void = { _ in }
     var sessionInteruptedHandler: () -> Void = { }
     var sessionInterruptionEndedHandler: () -> Void = { }
-    var shouldUpdateFaceAngles: Bool = false
     var headAngleChangeHandler: (CGFloat, Float) -> Void = { (_, _) in }
     var updateHeadDirection: (Bool) -> Void = { _ in }
-    var updateHeadTracking: (Bool) -> Void = { _ in }
 
     override init() {
         models = loadPlist("Models", defaultValues: [])
@@ -50,7 +48,7 @@ class NodeManager: NSObject {
         super.init()        
 
         createFaceGeometry()
-        contentUpdater.virtualFaceNode = nodeForMaskModel[models[1]]
+        contentUpdater.virtualFaceNode = nodeForMaskModel[models[0]]
         contentUpdater.getIndexOfMask = { [weak self] mask in
             guard let modelForMask = self?.nodeForMaskModel.first(where: { $0.value == mask })?.key else { return nil }
             return self?.models.firstIndex(of: modelForMask)
@@ -175,11 +173,6 @@ extension NodeManager: ARSessionDelegate {
         guard let lightEstimate = session.currentFrame?.lightEstimate  else { return }
         
         updateLight(lightEstimate: lightEstimate)
-
-        for anchor in session.currentFrame?.anchors ?? [] {
-            guard let faceAnchor = anchor as? ARFaceAnchor else { continue }
-            updateHeadTracking(faceAnchor.isTracked)
-        }
         
         glassesNode?.lightIntensity = max(0.0, min(1.0, lightEstimate.ambientIntensity / 1000.0))
         
@@ -213,37 +206,5 @@ extension NodeManager: ARSessionDelegate {
         
         updateHeadDirection(forwardInCamSpace.x < 0)
         
-        if let rootNode = rootNode, shouldUpdateFaceAngles {
-            updateCircleAngles(rootNode: rootNode, pointOfView: pointOfView, and: maskNode)
-        }
-    }
-    
-    private func updateCircleAngles(rootNode: SCNNode, pointOfView: SCNNode, and maskNode: VirtualFaceNode) {
-        guard let maskParent = maskNode.parent else { return }
-        
-        /// Helper Node to calculate the angle of the face to the camera
-        let maskForwardHelperNode = SCNNode()
-        rootNode.addChildNode(maskForwardHelperNode)
-        defer { maskForwardHelperNode.removeFromParentNode() }
-        
-        let distance: Float = 0.06
-        let maskPosition = maskParent.convertPosition(maskNode.position, to: nil)
-        let maskForward = maskNode.convertVector(SCNVector3(x: 0, y: 0, z: -1), to: nil)
-        let maskUp = maskNode.convertVector(SCNVector3(x: 0, y: 1, z: 0), to: nil)
-        let camPosition = pointOfView.convertPosition(SCNVector3.zero, to: nil)
-        
-        // calculate angle and amplitude of correction
-        let camToFace = maskPosition - camPosition
-        let faceForward = maskNode.convertVector(maskNode.forward(), to: nil)
-        let newAngle = CGFloat(faceForward.angle(to: camToFace))
-        
-        maskForwardHelperNode.position = maskPosition - distance * maskForward
-        maskForwardHelperNode.look(at: maskPosition + maskForward, up: maskUp, localFront: SCNVector3(x: -1, y: 0, z: 0))
-        
-        var rotationDirection = maskForwardHelperNode.convertVector(camToFace - maskForward, from: nil)
-        rotationDirection.x = 0
-        let rotationAngle = -sign(rotationDirection.z) * rotationDirection.angle(to: SCNVector3(0, 1, 0))
-        
-        headAngleChangeHandler(newAngle, rotationAngle)
     }
 }

@@ -113,7 +113,7 @@ class VirtualContentUpdater: NSObject {
         }
         (currentMask as? GlassesNode)?.shouldAnimateNextTempleChanges =
             (isMovingFromPresentationToHead || isMovingFromHeadToPresentation) && !suppressAnimations
-        (currentMask as? GlassesNode)?.isSittingOnFace = isFaceInView        
+        (currentMask as? GlassesNode)?.isSittingOnFace = isFaceInView
     }
 }
 
@@ -132,6 +132,7 @@ extension VirtualContentUpdater: ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let faceAnchor = anchor as? ARFaceAnchor else { return }
+        log.debug("faceAnchor: \(faceAnchor)")
         virtualFaceNode?.update(withFaceAnchor: faceAnchor)
 
         latestFaceGeometry = faceAnchor.geometry // 1220 vertices always

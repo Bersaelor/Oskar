@@ -33,10 +33,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.delegate = self
         
         nodes.connect(to: viewModel)
-        
+        nodes.connect(to: sceneView)
+        nodes.errorHandler = self.display(error:)
+        nodes.sessionInteruptedHandler = sessionInterrupted
+        nodes.sessionInterruptionEndedHandler = sessionInterruptionEnded
+
         sceneView.antialiasingMode = SCNAntialiasingMode.multisampling4X
 
-        nodes.connect(to: sceneView)
         nodes.createFaceGeometry()
 
     }
@@ -73,14 +76,32 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     // MARK: - ARSCNViewDelegate
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
+    private func displayErrorMessage(title: String, message: String) {
+        // Blur the background.
+        
+        // Present an alert informing about the error that has occurred.
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let restartAction = UIAlertAction(title: "Restart Session", style: .default) { _ in
+            alertController.dismiss(animated: true, completion: nil)
+            self.resetTracking()
+        }
+        alertController.addAction(restartAction)
+        present(alertController, animated: true, completion: nil)
     }
-*/
+    
+    private func display(error: Error) {
+        let errorWithInfo = error as NSError
+        let messages = [
+            errorWithInfo.localizedDescription,
+            errorWithInfo.localizedFailureReason,
+            errorWithInfo.localizedRecoverySuggestion
+        ]
+        let errorMessage = messages.compactMap({ $0 }).joined(separator: "\n")
+        
+        DispatchQueue.main.async {
+            self.displayErrorMessage(title: "The AR session failed.", message: errorMessage)
+        }
+    }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
