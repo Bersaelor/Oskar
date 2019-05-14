@@ -42,6 +42,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         nodes.createFaceGeometry()
 
+        let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
+        view.addGestureRecognizer(panGR)
+
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:)))
+        view.addGestureRecognizer(tapGR)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -61,6 +66,32 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Pause the view's session
         sceneView.session.pause()
+    }
+    
+    // MARK: - User Interaction
+    private var fingerPosition: CGPoint?
+    
+    @objc func handlePan(recognizer: UIPanGestureRecognizer) {
+        let location = recognizer.location(in: view)
+        switch recognizer.state {
+        case .began:
+            fingerPosition = location
+        case .changed:
+            guard let lastPosition = fingerPosition else { return }
+            fingerPosition = location
+            let delta: CGPoint = location - lastPosition
+            nodes.contentUpdater.angleAdjustment += delta
+        case .cancelled, .failed, .ended:
+            fingerPosition = nil
+        case .possible:
+            break
+        @unknown default:
+            break
+        }
+    }
+    
+    @objc func handleTap(recognizer: UITapGestureRecognizer) {
+        log.debug("Screen tapped")
     }
 
     /// - Tag: ARFaceTrackingSetup

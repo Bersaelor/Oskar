@@ -39,6 +39,7 @@
 		71585556228AF0C3005B6618 /* LoadPlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585555228AF0C3005B6618 /* LoadPlist.swift */; };
 		71585558228AF149005B6618 /* Models.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71585557228AF149005B6618 /* Models.plist */; };
 		7158555A228AF337005B6618 /* SCNMaterial+LensColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */; };
+		7158555C228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158555B228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		71585555228AF0C3005B6618 /* LoadPlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPlist.swift; sourceTree = "<group>"; };
 		71585557228AF149005B6618 /* Models.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Models.plist; sourceTree = "<group>"; };
 		71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNMaterial+LensColor.swift"; sourceTree = "<group>"; };
+		7158555B228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIInterfaceOrientation+DebugStringConvertible.swift"; sourceTree = "<group>"; };
 		7AB863BE7770AF24FB878263 /* Pods-Oskar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oskar.release.xcconfig"; path = "Target Support Files/Pods-Oskar/Pods-Oskar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +167,7 @@
 				7158554F228AEFB5005B6618 /* SCNMaterial+Metals.swift */,
 				7158552F228AE48B005B6618 /* SCNNode+Debug.swift */,
 				71585549228AEA03005B6618 /* SCNNode+Extension.swift */,
+				7158555B228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				7158554C228AEA5D005B6618 /* SCNNode+LoadFromFile.swift in Sources */,
 				7158553B228AE745005B6618 /* ARFaceGeometry+GlassPosition.swift in Sources */,
 				71585518228AE049005B6618 /* ViewController.swift in Sources */,
+				7158555C228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift in Sources */,
 				7158554E228AEAA0005B6618 /* MaskModification.swift in Sources */,
 				71585535228AE500005B6618 /* VirtualContentUpdater.swift in Sources */,
 				71585554228AF013005B6618 /* GlassesPosition.swift in Sources */,

@@ -37,9 +37,14 @@ class VirtualContentUpdater: NSObject {
      */
     private var faceNode: SCNNode?
     
+    private var lastFacePos: SCNVector3?
+    private var lastTimeStamp: Date?
+
     private let forwardHelperNode = SCNNode()
 
     var mainExhibitionNode: SCNNode?
+    
+    var angleAdjustment = CGPoint.zero
     
     private var exhibitionNodes = [SCNNode]()
 
@@ -132,7 +137,25 @@ extension VirtualContentUpdater: ARSCNViewDelegate {
         
         guard let faceNode = faceNode else { return }
         
-        virtualFaceNode?.eulerAngles = faceNode.eulerAngles
+        let cameraPositionAngleAdjuster = 0.1 * Float.pi / 180 * SCNVector3(angleAdjustment.y, angleAdjustment.x, 0)
+        
+        virtualFaceNode?.eulerAngles = faceNode.eulerAngles + cameraPositionAngleAdjuster
+        
+        guard let lastFacePos = lastFacePos, let lastTimeStamp = lastTimeStamp else {
+            self.lastFacePos = faceNode.position
+            self.lastTimeStamp = Date()
+            return
+        }
+        
+        let delta = faceNode.position - lastFacePos
+        self.lastFacePos = faceNode.position
+        self.lastTimeStamp = Date()
+        let deltaTime = Date().timeIntervalSince(lastTimeStamp)
+        // shrink by 33% per second
+        let shrinkFactor = (1 - 0.5 * deltaTime)
+        
+        guard let virtualFaceNode = virtualFaceNode else { return }
+        virtualFaceNode.position = Float(shrinkFactor) * (virtualFaceNode.position + delta)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
