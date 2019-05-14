@@ -12,7 +12,19 @@ import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
+    // MARK: Outlets
+
     @IBOutlet var sceneView: ARSCNView!
+    
+    // MARK: Properties
+    
+    private let viewModel = ViewModel()
+    private let nodes = NodeManager()
+    
+    /// Convenience accessor for the session owned by ARSCNView.
+    var session: ARSession {
+        return sceneView.session
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,24 +32,25 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
         
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+        nodes.connect(to: viewModel)
         
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+        sceneView.antialiasingMode = SCNAntialiasingMode.multisampling4X
+
+        nodes.connect(to: sceneView)
+        nodes.createFaceGeometry()
+
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-
-        // Run the view's session
-        sceneView.session.run(configuration)
+        /*
+         AR experiences typically involve moving the device without
+         touch input for some time, so prevent auto screen dimming.
+         */
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        resetTracking()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -47,6 +60,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
 
+    /// - Tag: ARFaceTrackingSetup
+    func resetTracking() {
+        #if targetEnvironment(simulator)
+        log.debug("not starting AR Session in simulator")
+        return
+        #endif
+        
+        let configuration = ARFaceTrackingConfiguration()
+        session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
     // MARK: - ARSCNViewDelegate
     
 /*
@@ -63,13 +87,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
     }
     
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
+    private func sessionInterrupted() {
+
     }
     
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
+    private func sessionInterruptionEnded() {
         
+        DispatchQueue.main.async {
+            self.resetTracking()
+        }
     }
 }

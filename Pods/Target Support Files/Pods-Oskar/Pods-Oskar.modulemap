@@ -1,0 +1,6 @@
+framework module Pods_Oskar {
+  umbrella header "Pods-Oskar-umbrella.h"
+
+  export *
+  module * { export * }
+}

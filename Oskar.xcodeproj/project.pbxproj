@@ -3,19 +3,47 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		702FD95C32A6BE196EF97E0E /* Pods_Oskar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D4DC4F1ADF42FAD4D4AD6DA /* Pods_Oskar.framework */; };
 		71585514228AE049005B6618 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585513228AE049005B6618 /* AppDelegate.swift */; };
 		71585516228AE049005B6618 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 71585515228AE049005B6618 /* art.scnassets */; };
 		71585518228AE049005B6618 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585517228AE049005B6618 /* ViewController.swift */; };
 		7158551B228AE049005B6618 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71585519228AE049005B6618 /* Main.storyboard */; };
 		7158551D228AE04A005B6618 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7158551C228AE04A005B6618 /* Assets.xcassets */; };
 		71585520228AE04A005B6618 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7158551E228AE04A005B6618 /* LaunchScreen.storyboard */; };
+		71585528228AE314005B6618 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585527228AE314005B6618 /* NodeManager.swift */; };
+		7158552A228AE33A005B6618 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585529228AE33A005B6618 /* ViewModel.swift */; };
+		7158552C228AE481005B6618 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158552B228AE481005B6618 /* Geometry.swift */; };
+		7158552E228AE485005B6618 /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158552D228AE485005B6618 /* SCNVector3+Extensions.swift */; };
+		71585530228AE48B005B6618 /* SCNNode+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158552F228AE48B005B6618 /* SCNNode+Debug.swift */; };
+		71585532228AE4E1005B6618 /* FaceMeshNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585531228AE4E1005B6618 /* FaceMeshNode.swift */; };
+		71585535228AE500005B6618 /* VirtualContentUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585534228AE500005B6618 /* VirtualContentUpdater.swift */; };
+		71585537228AE53F005B6618 /* VirtualFaceContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585536228AE53F005B6618 /* VirtualFaceContent.swift */; };
+		71585539228AE55C005B6618 /* GlassesNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585538228AE55B005B6618 /* GlassesNode.swift */; };
+		7158553B228AE745005B6618 /* ARFaceGeometry+GlassPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158553A228AE745005B6618 /* ARFaceGeometry+GlassPosition.swift */; };
+		7158553D228AE771005B6618 /* MaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158553C228AE771005B6618 /* MaskModel.swift */; };
+		71585540228AE910005B6618 /* MaskSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158553F228AE910005B6618 /* MaskSize.swift */; };
+		71585542228AE960005B6618 /* Matrix4+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585541228AE960005B6618 /* Matrix4+Extensions.swift */; };
+		71585546228AE9D9005B6618 /* PlasticColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585543228AE9D9005B6618 /* PlasticColor.swift */; };
+		71585547228AE9D9005B6618 /* LensColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585544228AE9D9005B6618 /* LensColor.swift */; };
+		71585548228AE9D9005B6618 /* MetalColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585545228AE9D9005B6618 /* MetalColor.swift */; };
+		7158554A228AEA03005B6618 /* SCNNode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585549228AEA03005B6618 /* SCNNode+Extension.swift */; };
+		7158554C228AEA5D005B6618 /* SCNNode+LoadFromFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158554B228AEA5D005B6618 /* SCNNode+LoadFromFile.swift */; };
+		7158554E228AEAA0005B6618 /* MaskModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158554D228AEAA0005B6618 /* MaskModification.swift */; };
+		71585550228AEFB5005B6618 /* SCNMaterial+Metals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158554F228AEFB5005B6618 /* SCNMaterial+Metals.swift */; };
+		71585552228AEFFC005B6618 /* TempleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585551228AEFFC005B6618 /* TempleMode.swift */; };
+		71585554228AF013005B6618 /* GlassesPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585553228AF013005B6618 /* GlassesPosition.swift */; };
+		71585556228AF0C3005B6618 /* LoadPlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585555228AF0C3005B6618 /* LoadPlist.swift */; };
+		71585558228AF149005B6618 /* Models.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71585557228AF149005B6618 /* Models.plist */; };
+		7158555A228AF337005B6618 /* SCNMaterial+LensColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		46A59D251E8669754506675B /* Pods-Oskar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oskar.debug.xcconfig"; path = "Target Support Files/Pods-Oskar/Pods-Oskar.debug.xcconfig"; sourceTree = "<group>"; };
+		4D4DC4F1ADF42FAD4D4AD6DA /* Pods_Oskar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oskar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71585510228AE049005B6618 /* Oskar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oskar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71585513228AE049005B6618 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71585515228AE049005B6618 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -24,6 +52,32 @@
 		7158551C228AE04A005B6618 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7158551F228AE04A005B6618 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		71585521228AE04A005B6618 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		71585527228AE314005B6618 /* NodeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
+		71585529228AE33A005B6618 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		7158552B228AE481005B6618 /* Geometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
+		7158552D228AE485005B6618 /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
+		7158552F228AE48B005B6618 /* SCNNode+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNNode+Debug.swift"; sourceTree = "<group>"; };
+		71585531228AE4E1005B6618 /* FaceMeshNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceMeshNode.swift; sourceTree = "<group>"; };
+		71585534228AE500005B6618 /* VirtualContentUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VirtualContentUpdater.swift; sourceTree = "<group>"; };
+		71585536228AE53F005B6618 /* VirtualFaceContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VirtualFaceContent.swift; sourceTree = "<group>"; };
+		71585538228AE55B005B6618 /* GlassesNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlassesNode.swift; sourceTree = "<group>"; };
+		7158553A228AE745005B6618 /* ARFaceGeometry+GlassPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARFaceGeometry+GlassPosition.swift"; sourceTree = "<group>"; };
+		7158553C228AE771005B6618 /* MaskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskModel.swift; sourceTree = "<group>"; };
+		7158553F228AE910005B6618 /* MaskSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskSize.swift; sourceTree = "<group>"; };
+		71585541228AE960005B6618 /* Matrix4+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix4+Extensions.swift"; sourceTree = "<group>"; };
+		71585543228AE9D9005B6618 /* PlasticColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlasticColor.swift; sourceTree = "<group>"; };
+		71585544228AE9D9005B6618 /* LensColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LensColor.swift; sourceTree = "<group>"; };
+		71585545228AE9D9005B6618 /* MetalColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalColor.swift; sourceTree = "<group>"; };
+		71585549228AEA03005B6618 /* SCNNode+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extension.swift"; sourceTree = "<group>"; };
+		7158554B228AEA5D005B6618 /* SCNNode+LoadFromFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNNode+LoadFromFile.swift"; sourceTree = "<group>"; };
+		7158554D228AEAA0005B6618 /* MaskModification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskModification.swift; sourceTree = "<group>"; };
+		7158554F228AEFB5005B6618 /* SCNMaterial+Metals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNMaterial+Metals.swift"; sourceTree = "<group>"; };
+		71585551228AEFFC005B6618 /* TempleMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempleMode.swift; sourceTree = "<group>"; };
+		71585553228AF013005B6618 /* GlassesPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlassesPosition.swift; sourceTree = "<group>"; };
+		71585555228AF0C3005B6618 /* LoadPlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPlist.swift; sourceTree = "<group>"; };
+		71585557228AF149005B6618 /* Models.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Models.plist; sourceTree = "<group>"; };
+		71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNMaterial+LensColor.swift"; sourceTree = "<group>"; };
+		7AB863BE7770AF24FB878263 /* Pods-Oskar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oskar.release.xcconfig"; path = "Target Support Files/Pods-Oskar/Pods-Oskar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +85,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				702FD95C32A6BE196EF97E0E /* Pods_Oskar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BAD542424F81D4F74B8B1C0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				46A59D251E8669754506675B /* Pods-Oskar.debug.xcconfig */,
+				7AB863BE7770AF24FB878263 /* Pods-Oskar.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		3E30FF298318DC3A3F720076 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D4DC4F1ADF42FAD4D4AD6DA /* Pods_Oskar.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		71585507228AE049005B6618 = {
 			isa = PBXGroup;
 			children = (
 				71585512228AE049005B6618 /* Oskar */,
 				71585511228AE049005B6618 /* Products */,
+				1BAD542424F81D4F74B8B1C0 /* Pods */,
+				3E30FF298318DC3A3F720076 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,14 +131,55 @@
 			isa = PBXGroup;
 			children = (
 				71585513228AE049005B6618 /* AppDelegate.swift */,
-				71585515228AE049005B6618 /* art.scnassets */,
 				71585517228AE049005B6618 /* ViewController.swift */,
+				71585529228AE33A005B6618 /* ViewModel.swift */,
+				71585527228AE314005B6618 /* NodeManager.swift */,
+				71585531228AE4E1005B6618 /* FaceMeshNode.swift */,
+				71585534228AE500005B6618 /* VirtualContentUpdater.swift */,
+				71585536228AE53F005B6618 /* VirtualFaceContent.swift */,
+				71585538228AE55B005B6618 /* GlassesNode.swift */,
+				71585551228AEFFC005B6618 /* TempleMode.swift */,
+				71585553228AF013005B6618 /* GlassesPosition.swift */,
+				71585555228AF0C3005B6618 /* LoadPlist.swift */,
+				7158553E228AE777005B6618 /* Model */,
+				71585533228AE4E7005B6618 /* Extensions */,
 				71585519228AE049005B6618 /* Main.storyboard */,
+				71585515228AE049005B6618 /* art.scnassets */,
 				7158551C228AE04A005B6618 /* Assets.xcassets */,
+				71585557228AF149005B6618 /* Models.plist */,
 				7158551E228AE04A005B6618 /* LaunchScreen.storyboard */,
 				71585521228AE04A005B6618 /* Info.plist */,
 			);
 			path = Oskar;
+			sourceTree = "<group>";
+		};
+		71585533228AE4E7005B6618 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */,
+				71585541228AE960005B6618 /* Matrix4+Extensions.swift */,
+				7158553A228AE745005B6618 /* ARFaceGeometry+GlassPosition.swift */,
+				7158552B228AE481005B6618 /* Geometry.swift */,
+				7158552D228AE485005B6618 /* SCNVector3+Extensions.swift */,
+				7158554B228AEA5D005B6618 /* SCNNode+LoadFromFile.swift */,
+				7158554F228AEFB5005B6618 /* SCNMaterial+Metals.swift */,
+				7158552F228AE48B005B6618 /* SCNNode+Debug.swift */,
+				71585549228AEA03005B6618 /* SCNNode+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7158553E228AE777005B6618 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7158553C228AE771005B6618 /* MaskModel.swift */,
+				7158554D228AEAA0005B6618 /* MaskModification.swift */,
+				7158553F228AE910005B6618 /* MaskSize.swift */,
+				71585544228AE9D9005B6618 /* LensColor.swift */,
+				71585545228AE9D9005B6618 /* MetalColor.swift */,
+				71585543228AE9D9005B6618 /* PlasticColor.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +189,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71585524228AE04A005B6618 /* Build configuration list for PBXNativeTarget "Oskar" */;
 			buildPhases = (
+				A51A3ABC984E7FD453AF1E9D /* [CP] Check Pods Manifest.lock */,
 				7158550C228AE049005B6618 /* Sources */,
 				7158550D228AE049005B6618 /* Frameworks */,
 				7158550E228AE049005B6618 /* Resources */,
+				CC31BA567B3446AB9AFEBABC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,6 +242,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71585558228AF149005B6618 /* Models.plist in Resources */,
 				71585516228AE049005B6618 /* art.scnassets in Resources */,
 				71585520228AE04A005B6618 /* LaunchScreen.storyboard in Resources */,
 				7158551D228AE04A005B6618 /* Assets.xcassets in Resources */,
@@ -134,13 +252,79 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A51A3ABC984E7FD453AF1E9D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Oskar-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC31BA567B3446AB9AFEBABC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Oskar/Pods-Oskar-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Oskar/Pods-Oskar-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Oskar/Pods-Oskar-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7158550C228AE049005B6618 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71585530228AE48B005B6618 /* SCNNode+Debug.swift in Sources */,
+				71585542228AE960005B6618 /* Matrix4+Extensions.swift in Sources */,
+				7158554C228AEA5D005B6618 /* SCNNode+LoadFromFile.swift in Sources */,
+				7158553B228AE745005B6618 /* ARFaceGeometry+GlassPosition.swift in Sources */,
 				71585518228AE049005B6618 /* ViewController.swift in Sources */,
+				7158554E228AEAA0005B6618 /* MaskModification.swift in Sources */,
+				71585535228AE500005B6618 /* VirtualContentUpdater.swift in Sources */,
+				71585554228AF013005B6618 /* GlassesPosition.swift in Sources */,
+				7158554A228AEA03005B6618 /* SCNNode+Extension.swift in Sources */,
+				7158555A228AF337005B6618 /* SCNMaterial+LensColor.swift in Sources */,
+				7158552E228AE485005B6618 /* SCNVector3+Extensions.swift in Sources */,
+				71585556228AF0C3005B6618 /* LoadPlist.swift in Sources */,
+				71585539228AE55C005B6618 /* GlassesNode.swift in Sources */,
+				71585540228AE910005B6618 /* MaskSize.swift in Sources */,
+				71585528228AE314005B6618 /* NodeManager.swift in Sources */,
+				71585548228AE9D9005B6618 /* MetalColor.swift in Sources */,
+				7158552A228AE33A005B6618 /* ViewModel.swift in Sources */,
+				71585552228AEFFC005B6618 /* TempleMode.swift in Sources */,
+				71585537228AE53F005B6618 /* VirtualFaceContent.swift in Sources */,
+				71585550228AEFB5005B6618 /* SCNMaterial+Metals.swift in Sources */,
 				71585514228AE049005B6618 /* AppDelegate.swift in Sources */,
+				71585546228AE9D9005B6618 /* PlasticColor.swift in Sources */,
+				7158553D228AE771005B6618 /* MaskModel.swift in Sources */,
+				71585547228AE9D9005B6618 /* LensColor.swift in Sources */,
+				7158552C228AE481005B6618 /* Geometry.swift in Sources */,
+				71585532228AE4E1005B6618 /* FaceMeshNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +468,7 @@
 		};
 		71585525228AE04A005B6618 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46A59D251E8669754506675B /* Pods-Oskar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -302,6 +487,7 @@
 		};
 		71585526228AE04A005B6618 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AB863BE7770AF24FB878263 /* Pods-Oskar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

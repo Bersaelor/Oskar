@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>versionNumber</key>
+		<integer>0</integer>
+		<key>imageName</key>
+		<string>Mesh_Icon</string>
+		<key>allowsPlasticCustomization</key>
+		<false/>
+		<key>categoryIdentifier</key>
+		<string>0</string>
+		<key>allowsMetalCustomization</key>
+		<false/>
+		<key>displayName</key>
+		<string>Face Mesh</string>
+		<key>modelFileName</key>
+		<string></string>
+		<key>distanceOfTemplesAtEarToCenterinCM</key>
+		<real>0</real>
+		<key>textureTransformScale</key>
+		<integer>1</integer>
+		<key>brand</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>versionNumber</key>
+		<integer>0</integer>
+		<key>imageName</key>
+		<string>Kari</string>
+		<key>categoryIdentifier</key>
+		<string>3</string>
+		<key>allowsPlasticCustomization</key>
+		<false/>
+		<key>allowsMetalCustomization</key>
+		<true/>
+		<key>displayName</key>
+		<string>Kari</string>
+		<key>modelFileName</key>
+		<string>Kari.dae</string>
+		<key>distanceOfTemplesAtEarToCenterinCM</key>
+		<real>5.7</real>
+		<key>textureTransformScale</key>
+		<integer>1</integer>
+		<key>shadedByDefault</key>
+		<false/>
+		<key>templesUsePadMaterial</key>
+		<true/>
+		<key>defaultBridgeSize</key>
+		<integer>16</integer>
+		<key>defaultTempleLength</key>
+		<integer>140</integer>
+		<key>defaultGlasWidth</key>
+		<integer>47</integer>
+		<key>defaultGlasHeight</key>
+		<integer>37</integer>
+		<key>brand</key>
+		<string>Grafix</string>
+	</dict>
+</array>
+</plist>
