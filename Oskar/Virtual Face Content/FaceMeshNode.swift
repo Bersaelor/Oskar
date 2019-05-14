@@ -13,7 +13,7 @@ class FaceMeshNode: SCNNode, VirtualFaceContent {
     init(geometry: ARSCNFaceGeometry) {
         let material = geometry.firstMaterial!
         
-        material.diffuse.contents = UIColor(red: 0.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        material.diffuse.contents = UIColor(red: 0.0, green: 0.5, blue: 0.5, alpha: 1.0)
         material.lightingModel = .constant
         material.fillMode = .lines
         

@@ -90,8 +90,13 @@ class NodeManager: NSObject {
         spotLight = SCNLight()
         spotLight?.type = SCNLight.LightType.spot
         spotLight?.castsShadow = true
+        spotLight?.shadowMode = .forward
+        spotLight?.shadowRadius = 10
+        spotLight?.shadowSampleCount = 12
+        spotLight?.shadowMapSize = CGSize(width: 500, height: 500)
+        spotLight?.shadowColor = UIColor.init(white: 0.1, alpha: 0.3).cgColor
         spotLight?.spotInnerAngle = 0
-        spotLight?.spotOuterAngle = 60
+        spotLight?.spotOuterAngle = 23
         
         let spotNode = SCNNode()
         spotNode.light = spotLight
@@ -141,15 +146,15 @@ class NodeManager: NSObject {
     private func staticLight() {
         scene?.lightingEnvironment.intensity = 2 * 495.23 / 1000.0
         [ambientLight, spotLight].forEach { $0?.temperature = 6019.88 }
-        ambientLight?.intensity = 500
+        ambientLight?.intensity = 450
         
-        spotLight?.intensity = 1368
-        spotLightNode?.position = SCNVector3(0, 2, -0.5)
-        spotLightNode?.eulerAngles = SCNVector3(-45 * Float.pi / 180, 0, 0)
+        spotLight?.intensity = 6 // 268
+        spotLightNode?.position = SCNVector3(-0.02, 1.0, 1.0)
+        spotLightNode?.eulerAngles = SCNVector3(-32 * Float.pi / 180, 0, 0)
     }
     
     private func setupWall() {
-        wallNode.position = SCNVector3(x: 0, y: -1, z: 2)
+        wallNode.position = SCNVector3(x: 0, y: -0.15, z: -0.15)
         pointOfView?.addChildNode(wallNode)
         
         let material = SCNMaterial()
@@ -160,14 +165,6 @@ class NodeManager: NSObject {
         material.normal.contents = UIImage(named: "art.scnassets/plastic-normal_smooth.jpg")
         material.normal.contentsTransform = SCNMatrix4MakeScale(0.001, 0.001, 0.001)
         wallNode.geometry?.materials = [material]
-        
-        let block = SCNNode(geometry: SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0.001))
-        block.position = SCNVector3(0, -0.2, -1.5)
-        pointOfView?.addChildNode(block)
-        
-        let moveAction = SCNAction.move(by: SCNVector3(x: 0, y: 0, z: -1), duration: 2)
-        let moveBack = moveAction.reversed()
-        block.runAction(SCNAction.repeatForever(SCNAction.sequence([moveAction, moveBack])))
     }
     
     func createFaceGeometry() {
