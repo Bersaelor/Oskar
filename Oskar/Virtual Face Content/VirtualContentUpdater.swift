@@ -170,7 +170,7 @@ extension VirtualContentUpdater {
     func createExhibitionNodes(from pointOfView: SCNNode?) {
         let node = SCNNode()
         node.name = "ViewCenter"
-        node.position = SCNVector3(0, 0, oniPad ? -0.3 : -0.4)
+        node.position = SCNVector3(0, 0, oniPad ? -0.35 : -0.4)
         pointOfView?.addChildNode(node)
         mainExhibitionNode = node
     }

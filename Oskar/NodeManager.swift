@@ -162,10 +162,10 @@ class NodeManager: NSObject {
         wallNode.geometry?.materials = [material]
         
         let block = SCNNode(geometry: SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0.001))
-        block.position = SCNVector3(0, -0.2, 0)
+        block.position = SCNVector3(0, -0.2, -1.5)
         pointOfView?.addChildNode(block)
         
-        let moveAction = SCNAction.move(by: SCNVector3(x: 0, y: 0, z: 1), duration: 2)
+        let moveAction = SCNAction.move(by: SCNVector3(x: 0, y: 0, z: -1), duration: 2)
         let moveBack = moveAction.reversed()
         block.runAction(SCNAction.repeatForever(SCNAction.sequence([moveAction, moveBack])))
     }
