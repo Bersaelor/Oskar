@@ -23,7 +23,7 @@ extension SCNNode {
         return float4x4(transform).forward()
     }
     
-    private static var duration: CFTimeInterval { return 0.6 }
+    static var animationDuration: CFTimeInterval { return 0.6 }
     static var angleAnimKeyPath: String { return "eulerAngles" }
     
     func animateTransform(from oldTransform: SCNMatrix4?,
@@ -33,16 +33,16 @@ extension SCNNode {
         let firstAnim = CABasicAnimation(keyPath: "transform")
         firstAnim.fromValue = oldTransform
         firstAnim.toValue = middleTranform
-        firstAnim.duration = 0.5 * SCNNode.duration
+        firstAnim.duration = 0.5 * SCNNode.animationDuration
         let secondAnim = CABasicAnimation(keyPath: "transform")
         secondAnim.fromValue = middleTranform
         secondAnim.toValue = newTransform
-        secondAnim.duration = 0.5 * SCNNode.duration
+        secondAnim.duration = 0.5 * SCNNode.animationDuration
         secondAnim.beginTime = firstAnim.duration
 
         let animation = CAAnimationGroup()
         animation.animations = [firstAnim, secondAnim]
-        animation.duration = SCNNode.duration
+        animation.duration = SCNNode.animationDuration
 
         addAnimation(animation, forKey: "animateTransform")
     }
@@ -53,14 +53,14 @@ extension SCNNode {
                        delegate: CAAnimationDelegate? = nil) {
         if let middleEuler = middleEuler {
             let animation = CAKeyframeAnimation(keyPath: SCNNode.angleAnimKeyPath)
-            animation.duration = SCNNode.duration
+            animation.duration = SCNNode.animationDuration
             animation.values = [oldEuler, middleEuler, newEuler]
             animation.keyTimes = [0, 0.5, 1]
             animation.delegate = delegate
             addAnimation(animation, forKey: "animateAngles")
         } else {
             let animation = CABasicAnimation(keyPath: SCNNode.angleAnimKeyPath)
-            animation.duration = SCNNode.duration
+            animation.duration = SCNNode.animationDuration
             animation.fromValue = oldEuler
             animation.toValue = newEuler
             animation.delegate = delegate

@@ -43,7 +43,7 @@ class NodeManager: NSObject {
     private var pointOfView: SCNNode? {
         didSet {
             guard let pointOfView = pointOfView else { return }
-            let distance: Float = 0.5
+            let distance: Float = 0.3
             rightOfScreen.name = "RightOfScreen"
             rightOfScreen.position = SCNVector3(distance, 0, -0.1)
             leftOfScreen.name = "LeftOfScreen"
@@ -95,6 +95,10 @@ class NodeManager: NSObject {
     }
 
     func resetGlassesPositions() {
+        if let oldGlasses = (contentUpdater.virtualFaceNode as? FaceMeshNode)?.glasses {
+            animateParentNode(of: oldGlasses, to: rightOfScreen)
+            (contentUpdater.virtualFaceNode as? FaceMeshNode)?.glasses = nil
+        }
         for maskModel in models {
             guard !maskModel.isFaceMesh else { continue }
             guard let maskNode = nodeForMaskModel[maskModel] as? GlassesNode else { continue }
@@ -109,22 +113,28 @@ class NodeManager: NSObject {
             log.warning("Failed to find glassesModel of name \(glassesName)")
             return
         }
+        guard let glassesNode = nodeForMaskModel[glassesModel] as? GlassesNode else {
+            log.warning("Failed to find a GlassesNode with model for name \(glassesName)")
+            return
+        }
         guard let faceMeshNode = contentUpdater.virtualFaceNode as? FaceMeshNode else {
             log.warning("Failed to find a FaceMeshNode in nodeForMaskModel")
             return
         }
 
+        let animateNewGlassesOn = {
+            faceMeshNode.glasses = glassesNode
+            self.animateParentNode(of: glassesNode, to: faceMeshNode)
+        }
+        
         // remove glasses on face and move them to the left of the screen
         if let oldGlasses = faceMeshNode.glasses {
             animateParentNode(of: oldGlasses, to: leftOfScreen)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 * SCNNode.animationDuration, execute: animateNewGlassesOn)
+        } else {
+            animateNewGlassesOn()
         }
 
-        guard let glassesNode = nodeForMaskModel[glassesModel] as? GlassesNode else {
-            log.warning("Failed to find a GlassesNode with model for name \(glassesName)")
-            return
-        }
-        faceMeshNode.glasses = glassesNode
-        animateParentNode(of: glassesNode, to: faceMeshNode)
     }
         
     private func setupSpotLight(position: SCNVector3) {

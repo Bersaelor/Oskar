@@ -12,7 +12,7 @@ struct MaskModification: Codable {
     var frameColor: PlasticColor = .black
     var lensColor: LensColor
     var metalColor: MetalColor = .chrome
-    var templeMetalColor: MetalColor = .titanium
+    var templeMetalColor: MetalColor = .turquoise
     var size: MaskSize = .defaultSize
     var templeLength: Float?
     var bridgeWidth: Float?
