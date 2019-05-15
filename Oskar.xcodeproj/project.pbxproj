@@ -41,6 +41,7 @@
 		7158555A228AF337005B6618 /* SCNMaterial+LensColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */; };
 		7158555C228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158555B228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift */; };
 		71F858A5228C6623007CB112 /* GrafixColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F858A4228C6623007CB112 /* GrafixColors.xcassets */; };
+		71F858A7228C8A32007CB112 /* Smoother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F858A6228C8A32007CB112 /* Smoother.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNMaterial+LensColor.swift"; sourceTree = "<group>"; };
 		7158555B228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIInterfaceOrientation+DebugStringConvertible.swift"; sourceTree = "<group>"; };
 		71F858A4228C6623007CB112 /* GrafixColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = GrafixColors.xcassets; sourceTree = "<group>"; };
+		71F858A6228C8A32007CB112 /* Smoother.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Smoother.swift; sourceTree = "<group>"; };
 		7AB863BE7770AF24FB878263 /* Pods-Oskar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oskar.release.xcconfig"; path = "Target Support Files/Pods-Oskar/Pods-Oskar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,6 +194,7 @@
 				71585551228AEFFC005B6618 /* TempleMode.swift */,
 				71585553228AF013005B6618 /* GlassesPosition.swift */,
 				71585555228AF0C3005B6618 /* LoadPlist.swift */,
+				71F858A6228C8A32007CB112 /* Smoother.swift */,
 			);
 			path = "Virtual Face Content";
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				71585535228AE500005B6618 /* VirtualContentUpdater.swift in Sources */,
 				71585554228AF013005B6618 /* GlassesPosition.swift in Sources */,
 				7158554A228AEA03005B6618 /* SCNNode+Extension.swift in Sources */,
+				71F858A7228C8A32007CB112 /* Smoother.swift in Sources */,
 				7158555A228AF337005B6618 /* SCNMaterial+LensColor.swift in Sources */,
 				7158552E228AE485005B6618 /* SCNVector3+Extensions.swift in Sources */,
 				71585556228AF0C3005B6618 /* LoadPlist.swift in Sources */,

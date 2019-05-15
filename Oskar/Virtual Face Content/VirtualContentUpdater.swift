@@ -37,7 +37,7 @@ class VirtualContentUpdater: NSObject {
      */
     private var faceNode: SCNNode?
     
-    private var lastFacePos: SCNVector3?
+    private var lastFacePos = Smoother<SCNVector3>(timeInterval: 0.5, method: .weightedAverage)
     private var lastTimeStamp: Date?
 
     let forwardHelperNode = SCNNode()
@@ -129,6 +129,7 @@ extension VirtualContentUpdater: ARSCNViewDelegate {
         updateMaskParentNode()
     }
     
+    
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let faceAnchor = anchor as? ARFaceAnchor else { return }
 
@@ -141,21 +142,25 @@ extension VirtualContentUpdater: ARSCNViewDelegate {
         
         virtualFaceNode?.eulerAngles = faceNode.eulerAngles + cameraPositionAngleAdjuster
         
-        guard let lastFacePos = lastFacePos, let lastTimeStamp = lastTimeStamp else {
-            self.lastFacePos = faceNode.position
+        guard let lastTimeStamp = lastTimeStamp else {
+            _ = self.lastFacePos.smooth(value: faceNode.position)
             self.lastTimeStamp = Date()
             return
         }
         
-        let delta = faceNode.position - lastFacePos
-        self.lastFacePos = faceNode.position
+        let lastFacePos = self.lastFacePos.smoothedValue
+        let newFacePos = self.lastFacePos.smooth(value: faceNode.position)
+
+        let delta = newFacePos - lastFacePos
         self.lastTimeStamp = Date()
         let deltaTime = Date().timeIntervalSince(lastTimeStamp)
-        // shrink by 33% per second
-        let shrinkFactor = (1 - 0.5 * deltaTime)
-        
+        // shrink by 50% per second
+        let shrinkFactor = (1 - 0.4 * deltaTime)
+
         guard let virtualFaceNode = virtualFaceNode else { return }
-        virtualFaceNode.position = Float(shrinkFactor) * (virtualFaceNode.position + delta)
+        let newIdealPos = Float(shrinkFactor) * (virtualFaceNode.position + delta)
+
+        virtualFaceNode.position = newIdealPos
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
@@ -175,3 +180,5 @@ extension VirtualContentUpdater {
         mainExhibitionNode = node
     }
 }
+
+extension SCNVector3: AverageAble { }

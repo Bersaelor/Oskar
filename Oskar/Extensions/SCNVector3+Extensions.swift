@@ -29,7 +29,7 @@ extension Double {
 }
 
 extension SCNVector3 {
-    static var zero: SCNVector3 {
+    public static var zero: SCNVector3 {
         return SCNVector3(x: 0, y: 0, z: 0)
     }
     
@@ -129,15 +129,15 @@ func / (left: SCNVector3, right: Float) -> SCNVector3 {
     return SCNVector3(x: left.x / right, y: left.y / right, z: left.z / right)
 }
 
-func * (left: SCNVector3, right: Float) -> SCNVector3 {
+public func * (left: SCNVector3, right: Float) -> SCNVector3 {
     return SCNVector3(x: left.x * right, y: left.y * right, z: left.z * right)
 }
 
-func * (left: Float, right: SCNVector3) -> SCNVector3 {
+public func * (left: Float, right: SCNVector3) -> SCNVector3 {
     return right * left
 }
 
-func + (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
+public func + (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
     return SCNVector3(x: left.x + right.x, y: left.y + right.y, z: left.z + right.z)
 }
 
