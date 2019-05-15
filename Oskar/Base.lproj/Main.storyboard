@@ -33,10 +33,77 @@
                     </view>
                     <connections>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <segue destination="8oO-IM-pNJ" kind="presentation" identifier="presentInfos" id="0KN-Uj-KgB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-33" y="119"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="9Ey-7P-Qgb">
+            <objects>
+                <navigationController id="8oO-IM-pNJ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yDG-Gf-Tjw">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bfd-mH-WcL" kind="relationship" relationship="rootViewController" id="mxs-8c-V5O"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UOH-Zs-F6A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="867" y="119"/>
+        </scene>
+        <!--Tutorial-->
+        <scene sceneID="tO1-iw-bgH">
+            <objects>
+                <viewController id="bfd-mH-WcL" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TZ3-O7-r9N">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cI2-Fn-Lfe">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Werbevideo mit Oskar aufnehmen:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcj-Pl-UNT">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="EOZ-qH-a6m">
+                                        <rect key="frame" x="0.0" y="21.5" width="414" height="752.5"/>
+                                        <color key="backgroundColor" red="0.788582805" green="0.788582805" blue="0.788582805" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <mutableString key="text">Zuerst bitte sicher stellen, das der Ringer/Stummmodus am Telefon aus ist. Sonst wird das erstellte Video keinen Audio-Kanal haben.  Durch Swipen/Wischen auf dem Bildschirm lässt sich der Winkel des Gesichtes wie gewünscht einstellen.  Das Video besteht aus einzelnen Schritten, während denen der Nutzer ein Script ablesen kann. Durch Tippen auf den Bildschirm geht es weiter:  (1) Video-Aufnahme startet (2) Maske setzt Neso-Brille auf (3) Maske setzt Hyperion-Brille auf (4) Maske setzt Kari-Brille auf (5) Brille wechselt Farbe (6) Brille wechselt Farbe (7) Brille wechselt Farbe (8) Video Aufnahme endet und kann exportiert werden. </mutableString>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.78858280495593425" green="0.78858280495593425" blue="0.78858280495593425" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="cI2-Fn-Lfe" firstAttribute="leading" secondItem="VUb-qH-S8U" secondAttribute="leading" id="95t-RU-AWE"/>
+                            <constraint firstItem="VUb-qH-S8U" firstAttribute="trailing" secondItem="cI2-Fn-Lfe" secondAttribute="trailing" id="JLB-zv-wU4"/>
+                            <constraint firstItem="VUb-qH-S8U" firstAttribute="bottom" secondItem="cI2-Fn-Lfe" secondAttribute="bottom" id="Xqg-Ke-Ivu"/>
+                            <constraint firstItem="cI2-Fn-Lfe" firstAttribute="top" secondItem="VUb-qH-S8U" secondAttribute="top" id="x23-IO-Y1m"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VUb-qH-S8U"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Tutorial" id="wpc-UM-nGe">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="QvT-iZ-y4p">
+                            <connections>
+                                <segue destination="ULU-09-zv9" kind="unwind" unwindAction="unwindToMainWithSegue:" id="Oo5-DB-KBd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BuU-QK-Zra" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ULU-09-zv9" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1664" y="119"/>
         </scene>
     </scenes>
 </document>

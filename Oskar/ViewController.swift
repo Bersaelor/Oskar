@@ -22,6 +22,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     private let viewModel = ViewModel()
     private let nodes = NodeManager()
     
+    private var hasShownInfos = false
+    
     /// Convenience accessor for the session owned by ARSCNView.
     var session: ARSession {
         return sceneView.session
@@ -61,6 +63,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
          */
         UIApplication.shared.isIdleTimerDisabled = true
         
+        if !hasShownInfos {
+            performSegue(withIdentifier: "presentInfos", sender: nil)
+            hasShownInfos = true
+        }
+        
         resetTracking()
     }
     
@@ -93,6 +100,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     // MARK: - User Interaction
     private var fingerPosition: CGPoint?
+    
+    @IBAction func unwindToMain(segue: UIStoryboardSegue) {
+
+    }
     
     @objc func handlePan(recognizer: UIPanGestureRecognizer) {
         let location = recognizer.location(in: view)
