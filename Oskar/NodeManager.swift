@@ -97,6 +97,7 @@ class NodeManager: NSObject {
             guard !maskModel.isFaceMesh else { continue }
             guard let maskNode = nodeForMaskModel[maskModel] as? GlassesNode else { continue }
             maskNode.templeMode = .closed
+            maskNode.isSittingOnFace = false
             leftOfScreen.addChildNode(maskNode)
         }
     }
@@ -106,14 +107,15 @@ class NodeManager: NSObject {
             log.warning("Failed to find glassesModel of name \(glassesName)")
             return
         }
-        guard let faceMeshNode = nodeForMaskModel.values.first(where: { $0 is FaceMeshNode }) as? FaceMeshNode else {
+        guard let faceMeshNode = contentUpdater.virtualFaceNode as? FaceMeshNode else {
             log.warning("Failed to find a FaceMeshNode in nodeForMaskModel")
             return
         }
 
         // remove glasses on face and move them to the left of the screen
-        if let glasses = faceMeshNode.glasses {
-            leftOfScreen.addChildNode(glasses)
+        if let oldGlasses = faceMeshNode.glasses {
+            oldGlasses.isSittingOnFace = false
+            leftOfScreen.addChildNode(oldGlasses)
         }
 
         guard let glassesNode = nodeForMaskModel[glassesModel] as? GlassesNode else {
@@ -121,6 +123,7 @@ class NodeManager: NSObject {
             return
         }
         faceMeshNode.addChildNode(glassesNode)
+        glassesNode.isSittingOnFace = true
         faceMeshNode.glasses = glassesNode
     }
     

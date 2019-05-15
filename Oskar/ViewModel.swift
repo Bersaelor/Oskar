@@ -10,7 +10,9 @@ import Foundation
 
 class ViewModel {
     
-    func nextStep() { currentStepIndex += 1 }
+    func nextStep() {
+        currentStepIndex = (currentStepIndex + 1) % VideoStep.all.count
+    }
     
     var currentStep: VideoStep { return VideoStep.all[currentStepIndex] }
     var stepChanged: (VideoStep) -> Void = { _ in }

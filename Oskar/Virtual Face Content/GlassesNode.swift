@@ -221,7 +221,6 @@ class GlassesNode: SCNNode {
         geometry?.firstMaterial!.colorBufferWriteMask = []
         faceOcclusionNode = SCNNode(geometry: geometry)
         faceOcclusionNode.name = "FACEOCCLUSION"
-        faceOcclusionNode.renderingOrder = -1
         self.maskModel = frameModel
         
         glassesReferenceNode = SCNNode.loadAsset(for: frameModel)
@@ -250,7 +249,6 @@ class GlassesNode: SCNNode {
         headOcclusion.position = SCNVector3(0, -0.007, 0.03)
         ([headOcclusion] + ears).forEach { (node) in
             node.geometry!.firstMaterial!.colorBufferWriteMask = []
-            node.renderingOrder = -1
             glassesReferenceNode.addChildNode(node)
         }
         
