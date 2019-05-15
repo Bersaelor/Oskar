@@ -40,7 +40,7 @@ class VirtualContentUpdater: NSObject {
     private var lastFacePos: SCNVector3?
     private var lastTimeStamp: Date?
 
-    private let forwardHelperNode = SCNNode()
+    let forwardHelperNode = SCNNode()
 
     var mainExhibitionNode: SCNNode?
 
@@ -73,7 +73,7 @@ class VirtualContentUpdater: NSObject {
             return
         }
 
-        log.verbose("Moving \(virtualFaceNode?.name ?? "?"), from: \(oldParent?.name ?? "?") -> \(newParent.name ?? "?")")
+        log.debug("Moving \(virtualFaceNode?.name ?? "?"), from: \(oldParent?.name ?? "?") -> \(newParent.name ?? "?")")
         
         var convertedTransform = oldParent?.convertTransform(currentMask.transform, to: newParent)
         let convertedPosition = oldParent?.convertPosition(currentMask.position, to: newParent)
@@ -124,7 +124,7 @@ extension VirtualContentUpdater: ARSCNViewDelegate {
         faceNode = node
         faceNode?.name = "FACENODE"
         forwardHelperNode.position = SCNVector3(0, 0, 0.12)
-        faceNode?.addChildNode(forwardHelperNode)
+        virtualFaceNode?.addChildNode(forwardHelperNode)
         log.verbose("Did add \(node.name ?? "?")")
         updateMaskParentNode()
     }

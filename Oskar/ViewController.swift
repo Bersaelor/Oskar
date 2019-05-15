@@ -40,13 +40,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         nodes.errorHandler = self.display(error:)
         nodes.sessionInteruptedHandler = sessionInterrupted
         nodes.sessionInterruptionEndedHandler = sessionInterruptionEnded
-        nodes.resetGlassesPositions()
         
         sceneView.antialiasingMode = SCNAntialiasingMode.multisampling4X
 
         viewModel.stepChanged = { [weak self] step in self?.stepChanged(to: step) }
         
         nodes.createFaceGeometry()
+        nodes.resetGlassesPositions()
 
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
         view.addGestureRecognizer(panGR)

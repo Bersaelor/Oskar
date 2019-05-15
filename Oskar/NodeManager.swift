@@ -43,8 +43,10 @@ class NodeManager: NSObject {
     private var pointOfView: SCNNode? {
         didSet {
             guard let pointOfView = pointOfView else { return }
-            let distance: Float = 1
+            let distance: Float = 0.5
+            rightOfScreen.name = "RightOfScreen"
             rightOfScreen.position = SCNVector3(distance, 0, -0.1)
+            leftOfScreen.name = "LeftOfScreen"
             leftOfScreen.position = SCNVector3(-distance, 0, -0.1)
             pointOfView.addChildNode(rightOfScreen)
             pointOfView.addChildNode(leftOfScreen)
@@ -98,7 +100,7 @@ class NodeManager: NSObject {
             guard let maskNode = nodeForMaskModel[maskModel] as? GlassesNode else { continue }
             maskNode.templeMode = .closed
             maskNode.isSittingOnFace = false
-            leftOfScreen.addChildNode(maskNode)
+            rightOfScreen.addChildNode(maskNode)
         }
     }
     
@@ -114,24 +116,17 @@ class NodeManager: NSObject {
 
         // remove glasses on face and move them to the left of the screen
         if let oldGlasses = faceMeshNode.glasses {
-            oldGlasses.isSittingOnFace = false
-            leftOfScreen.addChildNode(oldGlasses)
+            animateParentNode(of: oldGlasses, to: leftOfScreen)
         }
 
         guard let glassesNode = nodeForMaskModel[glassesModel] as? GlassesNode else {
             log.warning("Failed to find a GlassesNode with model for name \(glassesName)")
             return
         }
-        faceMeshNode.addChildNode(glassesNode)
-        glassesNode.isSittingOnFace = true
         faceMeshNode.glasses = glassesNode
+        animateParentNode(of: glassesNode, to: faceMeshNode)
     }
-    
-    private func set(mask: MaskModel?) {
-        guard let mask = mask else { return }
-        contentUpdater.virtualFaceNode = nodeForMaskModel[mask]
-    }
-    
+        
     private func setupSpotLight(position: SCNVector3) {
         spotLight = SCNLight()
         spotLight?.type = SCNLight.LightType.spot
@@ -237,6 +232,35 @@ class NodeManager: NSObject {
                 nodeForMaskModel[model] = GlassesNode(geometry: glassesGeometry, frameModel: model)
             }
         }
+    }
+    
+    private func animateParentNode(of glasses: GlassesNode, to newParent: SCNNode) {
+        let oldParent = glasses.parent
+        guard oldParent != newParent else {
+            log.verbose("Glasses already on the right parent: \(oldParent?.name ?? "?")")
+            return
+        }
+        
+        log.debug("Moving \(glasses.name ?? "?"), from: \(oldParent?.name ?? "?") -> \(newParent.name ?? "?")")
+        
+        var convertedTransform = oldParent?.convertTransform(glasses.transform, to: newParent)
+        let convertedPosition = oldParent?.convertPosition(glasses.position, to: newParent)
+        convertedTransform?.position = convertedPosition ?? .zero
+        
+        let isMovingFromPresentationToHead = newParent == contentUpdater.virtualFaceNode
+//        let isMovingFromHeadToPresentation = oldParent == contentUpdater.virtualFaceNode
+
+        // animate glasses on/off head movement
+        var midTransform = contentUpdater.forwardHelperNode.convertTransform(.identity, to: newParent)
+        let midPosition = contentUpdater.forwardHelperNode.convertPosition(.zero, to: newParent)
+        midTransform.position = midPosition
+        
+        newParent.addChildNode(glasses)
+        glasses.animateTransform(from: convertedTransform,
+                                     via: midTransform,
+                                     to: .identity)
+        glasses.shouldAnimateNextTempleChanges = true
+        glasses.isSittingOnFace = isMovingFromPresentationToHead
     }
 
     /// Adjust the central Position horizontally

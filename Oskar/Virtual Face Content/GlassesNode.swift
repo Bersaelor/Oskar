@@ -82,9 +82,6 @@ class GlassesNode: SCNNode {
     }()
     private lazy var defaultMetalTempleScale: SCNVector3 = { return metalLeft.scale }()
     private let faceOcclusionNode: SCNNode
-    private lazy var headOcclusion: SCNNode = {
-        return GlassesNode.occlusionReferenceNode.childNode(withName: "HEAD", recursively: true)!.clone()
-    }()
     private lazy var ears: [SCNNode] = { return [leftEar, rightEar] }()
     private lazy var leftEar: SCNNode = {
         let newNode = GlassesNode.occlusionReferenceNode.childNode(withName: "EAR_LEFT", recursively: true)!.clone()
@@ -168,15 +165,6 @@ class GlassesNode: SCNNode {
         didSet { updateGlassesPosition() }
     }
     
-    var showEars: Bool = false {
-        didSet {
-            ears.forEach { $0.renderingOrder = showEars ? 0 : -1 }
-            earMaterial.colorBufferWriteMask = showEars ? metal.colorBufferWriteMask : []
-            earMaterial.fillMode = showEars ? .lines : .fill
-            earMaterial.transparency = showEars ? 0.33 : 1.0
-        }
-    }
-    
     var earPosition = SCNVector3.zero {
         didSet {
             leftEar.position = leftEarDefaultPosition + earPosition
@@ -221,6 +209,7 @@ class GlassesNode: SCNNode {
         geometry?.firstMaterial!.colorBufferWriteMask = []
         faceOcclusionNode = SCNNode(geometry: geometry)
         faceOcclusionNode.name = "FACEOCCLUSION"
+        faceOcclusionNode.isHidden = true
         self.maskModel = frameModel
         
         glassesReferenceNode = SCNNode.loadAsset(for: frameModel)
@@ -245,12 +234,6 @@ class GlassesNode: SCNNode {
         addChildNode(faceOcclusionNode)
         // Add 3D content positioned as "glasses".
         addChildNode(glassesReferenceNode)
-
-        headOcclusion.position = SCNVector3(0, -0.007, 0.03)
-        ([headOcclusion] + ears).forEach { (node) in
-            node.geometry!.firstMaterial!.colorBufferWriteMask = []
-            glassesReferenceNode.addChildNode(node)
-        }
         
         setupMaterials()
         _ = defaultTempleDistance
@@ -495,11 +478,6 @@ class GlassesNode: SCNNode {
     }
     
     private func updateAfterParentChanges() {
-        ([headOcclusion, faceOcclusionNode] + ears).forEach { (node) in
-            // when glasses aren't on face there should be no occlusion nodes
-            node.isHidden = !isSittingOnFace
-        }
-
         isAnimatingTemples = false
         
         // when glasses aren't on face the glasses should be on the origin
