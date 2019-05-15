@@ -234,7 +234,11 @@ class GlassesNode: SCNNode {
         addChildNode(faceOcclusionNode)
         // Add 3D content positioned as "glasses".
         addChildNode(glassesReferenceNode)
-                
+        
+        [bridge, lensLeft, lensRight, frameLeft, frameRight, frameLeft, frameRight, templeLeft, templeRight].forEach { (node) in
+            node?.categoryBitMask = NodeManager.spotLight2Mask
+        }
+        
         setupMaterials()
         _ = defaultTempleDistance
         updateFrameMaterials()
@@ -246,7 +250,6 @@ class GlassesNode: SCNNode {
         updateTemplePositions()
         setupCentrationNodes()
         updateAfterParentChanges()
-        
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("\(#function) has not been implemented") }

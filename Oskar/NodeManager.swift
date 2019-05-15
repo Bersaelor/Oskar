@@ -28,10 +28,13 @@ class NodeManager: NSObject {
     }
     
     var faceDetectionChanged: () -> Void = { }
+    static let spotLight2Mask: Int = 0b10
     
     private var spotLight: SCNLight?
+    private var spotLight2: SCNLight?
     private var ambientLight: SCNLight?
     private var spotLightNode: SCNNode?
+    private var spotLightNode2: SCNNode?
     private var ambientLightNode: SCNNode?
 
     private var scene: SCNScene? {
@@ -155,26 +158,34 @@ class NodeManager: NSObject {
         
     private func setupSpotLight(position: SCNVector3) {
         spotLight = SCNLight()
-        spotLight?.type = SCNLight.LightType.spot
+        spotLight2 = SCNLight()
+        [spotLight, spotLight2].forEach { (light) in
+            light?.type = SCNLight.LightType.spot
+            light?.spotInnerAngle = 0
+            light?.spotOuterAngle = 23
+        }
         spotLight?.castsShadow = true
         spotLight?.shadowMode = .forward
         spotLight?.shadowRadius = 10
         spotLight?.shadowSampleCount = 12
         spotLight?.shadowMapSize = CGSize(width: 500, height: 500)
-        spotLight?.shadowColor = UIColor.init(white: 0.1, alpha: 0.3).cgColor
-        spotLight?.spotInnerAngle = 0
-        spotLight?.spotOuterAngle = 23
+        spotLight?.shadowColor = UIColor.init(white: 0.05, alpha: 0.6).cgColor
+
+        spotLight2?.categoryBitMask = NodeManager.spotLight2Mask
         
         let spotNode = SCNNode()
         spotNode.light = spotLight
         spotNode.position = position
-        
-        // By default the stop light points directly down the negative
-        // z-axis, we want to shine it down so rotate 90deg around the
-        // x-axis to point it down
         spotNode.eulerAngles = SCNVector3(-Float.pi/2, 0, 0)
         pointOfView?.addChildNode(spotNode)
         spotLightNode = spotNode
+
+        let spotNode2 = SCNNode()
+        spotNode2.light = spotLight2
+        spotNode2.position = position
+        spotNode2.eulerAngles = SCNVector3(-Float.pi/2, 0, 0)
+        pointOfView?.addChildNode(spotNode2)
+        spotLightNode2 = spotNode2
     }
     
     private func setupAmbientLight(position: SCNVector3) {
@@ -193,7 +204,7 @@ class NodeManager: NSObject {
     
     private func updateLight(lightEstimate: ARLightEstimate) {
         scene?.lightingEnvironment.intensity = 2 * lightEstimate.ambientIntensity / 1000.0
-        [ambientLight, spotLight].forEach { (light) in
+        [ambientLight, spotLight, spotLight2].forEach { (light) in
             light?.temperature = lightEstimate.ambientColorTemperature
         }
         ambientLight?.intensity = lightEstimate.ambientIntensity / 3
@@ -211,18 +222,25 @@ class NodeManager: NSObject {
     }
     
     private func staticLight() {
-        scene?.lightingEnvironment.intensity = 2 * 495.23 / 1000.0
-        [ambientLight, spotLight].forEach { $0?.temperature = 6019.88 }
-        ambientLight?.intensity = 450
+        scene?.lightingEnvironment.intensity = 3.5
+        [ambientLight, spotLight, spotLight2].forEach { $0?.temperature = 6019.88 }
+        ambientLight?.intensity = 150
         
         spotLight?.intensity = 6 // 268
         spotLightNode?.position = SCNVector3(-0.02, 1.0, 1.0)
         spotLightNode?.eulerAngles = SCNVector3(-32 * Float.pi / 180, 0, 0)
+
+        spotLight2?.intensity = 19 // 268
+        spotLightNode2?.position = SCNVector3(-0.02, -0.25, 1.0)
+        spotLightNode2?.eulerAngles = SCNVector3(15 * Float.pi / 180, 0, 0)
     }
     
     private func setupWall() {
         wallNode.position = SCNVector3(x: 0, y: -0.15, z: -0.15)
         pointOfView?.addChildNode(wallNode)
+        wallNode.categoryBitMask = ~NodeManager.spotLight2Mask
+        
+        pointOfView?.debugNodeChildren()
         
         let material = SCNMaterial()
         material.lightingModel = .physicallyBased

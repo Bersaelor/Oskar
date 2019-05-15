@@ -85,9 +85,9 @@ enum LensColor: Int, Codable {
     var reflectivity: Float {
         switch self {
         case .clear:
-            return 0.06
+            return 0.03
         case .antireflective:
-            return 0.02
+            return 0.01
         case .shaded, .photoChromic:
             return 0.09
         case .mirrored:
