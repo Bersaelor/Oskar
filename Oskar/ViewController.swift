@@ -6,9 +6,10 @@
 //  Copyright © 2019 Konrad Feiler. All rights reserved.
 //
 
-import UIKit
-import SceneKit
 import ARKit
+import SceneKit
+import ReplayKit
+import UIKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
@@ -40,6 +41,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         sceneView.antialiasingMode = SCNAntialiasingMode.multisampling4X
 
+        viewModel.stepChanged = { [weak self] step in self?.stepChanged(to: step) }
+        
         nodes.createFaceGeometry()
 
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
@@ -68,6 +71,26 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
+    private let recorder = RPScreenRecorder.shared()
+    private var isRecording = false {
+        didSet {
+            guard oldValue != isRecording else { return }
+            log.debug("\(oldValue) -> \(isRecording)")
+        }
+    }
+    
+    private func stepChanged(to step: VideoStep) {
+        log.debug("newStep: \(step)")
+        switch step {
+        case .startVideoRecording:
+            startRecording()
+        case .endRecording:
+            stopRecording()
+        default:
+            break
+        }
+    }
+    
     // MARK: - User Interaction
     private var fingerPosition: CGPoint?
     
@@ -91,7 +114,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @objc func handleTap(recognizer: UITapGestureRecognizer) {
-        log.debug("Screen tapped")
+        viewModel.nextStep()
     }
 
     /// - Tag: ARFaceTrackingSetup
@@ -105,7 +128,56 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
     
-    // MARK: - ARSCNViewDelegate
+    // MARK: - Video Recording Related
+    
+    private func startRecording() {
+        guard recorder.isAvailable else {
+            log.warning("Recording isn't available at the moment")
+            isRecording = false
+            return
+        }
+        
+        recorder.isMicrophoneEnabled = true
+        log.debug("isMicrophoneEnabled: \(recorder.isMicrophoneEnabled)")
+        recorder.startRecording { (error) in
+            log.debug("Recording handler called with \(String(describing: error))")
+            if let error = error {
+                log.error("Failed to start recording due to \(error)")
+                self.isRecording = false
+                return
+            }
+            
+            self.isRecording = true
+        }
+    }
+    
+    private func stopRecording() {
+        recorder.stopRecording { [weak self] (previewVC, error) in
+            guard let self = self else { return }
+            if let error = error {
+                log.error("Failed to stop recording due to \(error)")
+                self.isRecording = false
+                return
+            }
+            
+            self.isRecording = false
+            
+            guard let previewVC = previewVC else { return }
+            previewVC.previewControllerDelegate = self
+            previewVC.modalPresentationStyle = .fullScreen
+            DispatchQueue.main.async {
+                self.present(previewVC, animated: true, completion: {
+                    log.debug("Presented Preview of Recording VC")
+                })
+            }
+        }
+    }
+    
+}
+
+// MARK: - ARSCNViewDelegate
+
+extension ViewController {
     
     private func displayErrorMessage(title: String, message: String) {
         // Blur the background.
@@ -148,5 +220,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         DispatchQueue.main.async {
             self.resetTracking()
         }
+    }
+}
+
+extension ViewController: RPPreviewViewControllerDelegate {
+    func previewControllerDidFinish(_ previewController: RPPreviewViewController) {
+        dismiss(animated: true)
     }
 }
