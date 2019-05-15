@@ -40,7 +40,18 @@ class NodeManager: NSObject {
         }
     }
     private var rootNode: SCNNode? { return scene?.rootNode }
-    private var pointOfView: SCNNode?
+    private var pointOfView: SCNNode? {
+        didSet {
+            guard let pointOfView = pointOfView else { return }
+            let distance: Float = 1
+            rightOfScreen.position = SCNVector3(distance, 0, -0.1)
+            leftOfScreen.position = SCNVector3(-distance, 0, -0.1)
+            pointOfView.addChildNode(rightOfScreen)
+            pointOfView.addChildNode(leftOfScreen)
+        }
+    }
+    private let rightOfScreen = SCNNode()
+    private let leftOfScreen = SCNNode()
 
     var errorHandler: (Error) -> Void = { _ in }
     var sessionInteruptedHandler: () -> Void = { }
@@ -81,6 +92,38 @@ class NodeManager: NSObject {
         staticLight()
     }
 
+    func resetGlassesPositions() {
+        for maskModel in models {
+            guard !maskModel.isFaceMesh else { continue }
+            guard let maskNode = nodeForMaskModel[maskModel] as? GlassesNode else { continue }
+            maskNode.templeMode = .closed
+            leftOfScreen.addChildNode(maskNode)
+        }
+    }
+    
+    func putOnFace(glassesName: String) {
+        guard let glassesModel = models.first(where: { $0.displayName.lowercased() == glassesName.lowercased() }) else {
+            log.warning("Failed to find glassesModel of name \(glassesName)")
+            return
+        }
+        guard let faceMeshNode = nodeForMaskModel.values.first(where: { $0 is FaceMeshNode }) as? FaceMeshNode else {
+            log.warning("Failed to find a FaceMeshNode in nodeForMaskModel")
+            return
+        }
+
+        // remove glasses on face and move them to the left of the screen
+        if let glasses = faceMeshNode.glasses {
+            leftOfScreen.addChildNode(glasses)
+        }
+
+        guard let glassesNode = nodeForMaskModel[glassesModel] as? GlassesNode else {
+            log.warning("Failed to find a GlassesNode with model for name \(glassesName)")
+            return
+        }
+        faceMeshNode.addChildNode(glassesNode)
+        faceMeshNode.glasses = glassesNode
+    }
+    
     private func set(mask: MaskModel?) {
         guard let mask = mask else { return }
         contentUpdater.virtualFaceNode = nodeForMaskModel[mask]

@@ -157,7 +157,7 @@ class GlassesNode: SCNNode {
         didSet { updateLensMaterial() }
     }
     
-    private var templeMode = TempleMode.open {
+    var templeMode = TempleMode.open {
         didSet {
             guard oldValue != templeMode else { return }
             updateTemples()

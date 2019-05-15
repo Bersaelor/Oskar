@@ -29,6 +29,8 @@ class FaceMeshNode: SCNNode, VirtualFaceContent {
     
     // MARK: VirtualFaceContent
     
+    weak var glasses: GlassesNode?
+    
     var noseRidgePoint: SCNNode?
     var leftPoint: SCNNode?
     var rightPoint: SCNNode?
@@ -39,6 +41,8 @@ class FaceMeshNode: SCNNode, VirtualFaceContent {
     func update(withFaceAnchor anchor: ARFaceAnchor) {
         let faceGeometry = geometry as! ARSCNFaceGeometry
         faceGeometry.update(from: anchor.geometry)
+        
+        glasses?.update(withFaceAnchor: anchor)
         
         noseRidgePoint?.position = anchor.geometry.noseSocketPoint
         leftPoint?.position = anchor.geometry.leftNosePoint

@@ -23,7 +23,7 @@ class ViewModel {
     }
 }
 
-enum VideoStep {
+enum VideoStep: String {
     case idle
     case startVideoRecording
     case neso

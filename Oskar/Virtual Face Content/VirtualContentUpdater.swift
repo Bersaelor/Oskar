@@ -43,7 +43,7 @@ class VirtualContentUpdater: NSObject {
     private let forwardHelperNode = SCNNode()
 
     var mainExhibitionNode: SCNNode?
-    
+
     var angleAdjustment = CGPoint.zero
     
     private var exhibitionNodes = [SCNNode]()

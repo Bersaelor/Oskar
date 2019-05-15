@@ -40,7 +40,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         nodes.errorHandler = self.display(error:)
         nodes.sessionInteruptedHandler = sessionInterrupted
         nodes.sessionInterruptionEndedHandler = sessionInterruptionEnded
-
+        nodes.resetGlassesPositions()
+        
         sceneView.antialiasingMode = SCNAntialiasingMode.multisampling4X
 
         viewModel.stepChanged = { [weak self] step in self?.stepChanged(to: step) }
@@ -89,6 +90,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     private func stepChanged(to step: VideoStep) {
         log.debug("newStep: \(step)")
         switch step {
+        case .idle:
+            nodes.resetGlassesPositions()
+        case .kari, .hyperion, .neso:
+            nodes.putOnFace(glassesName: step.rawValue)
         case .startVideoRecording:
             startRecording()
         case .endRecording:
