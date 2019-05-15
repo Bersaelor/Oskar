@@ -10,7 +10,8 @@ import SceneKit
 
 extension SCNMaterial {
     
-    func setGold() {
+    func setGold(animated: Bool = false) {
+        if animated { SCNTransaction.animationDuration = SCNNode.animationDuration }
         metalness.contents = UIColor(white: 1.0, alpha: 1.0)
         roughness.contents = UIImage(named: "art.scnassets/streakedmetal-roughness.png")
         diffuse.contents = UIColor(red: 0.75164, green: 0.60648, blue: 0.22648, alpha: 1.0)
@@ -22,7 +23,8 @@ extension SCNMaterial {
         diffuse.contents = UIImage(named: "art.scnassets/streakedmetal-albedo.png")
     }
 
-    func setMetalColor(color: MetalColor) {        
+    func setMetalColor(color: MetalColor, animated: Bool = false) {
+        if animated { SCNTransaction.animationDuration = SCNNode.animationDuration }
         metalness.contents = 1.0
         roughness.contents = 0.25
         roughness.contents = UIImage(named: "art.scnassets/noise_25%.png")

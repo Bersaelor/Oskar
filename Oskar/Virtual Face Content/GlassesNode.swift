@@ -345,14 +345,14 @@ class GlassesNode: SCNNode {
         
         if maskModel.allowsMetalCustomization {
             if !modification.metalColor.isDefaultSceneKit {
-                metal.setMetalColor(color: modification.metalColor)
-                templeMetal.setMetalColor(color: modification.templeMetalColor)
+                metal.setMetalColor(color: modification.metalColor, animated: true)
+                templeMetal.setMetalColor(color: modification.templeMetalColor, animated: true)
             } else if modification.metalColor == .chrome {
                 metal.setChrome()
                 templeMetal.setChrome()
             } else if modification.metalColor == .goldPBR {
                 metal.setGold()
-                templeMetal.setGold()
+                templeMetal.setGold(animated: true)
             }
         }
         
