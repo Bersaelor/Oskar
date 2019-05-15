@@ -47,4 +47,13 @@ enum VideoStep: String {
         .colorC,
         .endRecording
     ]
+    
+    var metalColor: MetalColor? {
+        switch self {
+        case .colorA: return .titanium
+        case .colorB: return .purple
+        case .colorC: return .goldPBR
+        default: return nil
+        }
+    }
 }

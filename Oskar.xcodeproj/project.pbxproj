@@ -40,6 +40,7 @@
 		71585558228AF149005B6618 /* Models.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71585557228AF149005B6618 /* Models.plist */; };
 		7158555A228AF337005B6618 /* SCNMaterial+LensColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */; };
 		7158555C228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158555B228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift */; };
+		71F858A5228C6623007CB112 /* GrafixColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F858A4228C6623007CB112 /* GrafixColors.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		71585557228AF149005B6618 /* Models.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Models.plist; sourceTree = "<group>"; };
 		71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNMaterial+LensColor.swift"; sourceTree = "<group>"; };
 		7158555B228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIInterfaceOrientation+DebugStringConvertible.swift"; sourceTree = "<group>"; };
+		71F858A4228C6623007CB112 /* GrafixColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = GrafixColors.xcassets; sourceTree = "<group>"; };
 		7AB863BE7770AF24FB878263 /* Pods-Oskar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oskar.release.xcconfig"; path = "Target Support Files/Pods-Oskar/Pods-Oskar.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +142,7 @@
 				7158553E228AE777005B6618 /* Model */,
 				71585533228AE4E7005B6618 /* Extensions */,
 				71585519228AE049005B6618 /* Main.storyboard */,
+				71F858A4228C6623007CB112 /* GrafixColors.xcassets */,
 				71585515228AE049005B6618 /* art.scnassets */,
 				7158551C228AE04A005B6618 /* Assets.xcassets */,
 				71585557228AF149005B6618 /* Models.plist */,
@@ -255,6 +258,7 @@
 			files = (
 				71585558228AF149005B6618 /* Models.plist in Resources */,
 				71585516228AE049005B6618 /* art.scnassets in Resources */,
+				71F858A5228C6623007CB112 /* GrafixColors.xcassets in Resources */,
 				71585520228AE04A005B6618 /* LaunchScreen.storyboard in Resources */,
 				7158551D228AE04A005B6618 /* Assets.xcassets in Resources */,
 				7158551B228AE049005B6618 /* Main.storyboard in Resources */,

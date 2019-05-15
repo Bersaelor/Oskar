@@ -11,8 +11,8 @@ import Foundation
 struct MaskModification: Codable {
     var frameColor: PlasticColor = .black
     var lensColor: LensColor
-    var metalColor: MetalColor = .chrome
-    var templeMetalColor: MetalColor = .turquoise
+    var metalColor: MetalColor = .titanium
+    var templeMetalColor: MetalColor = .titanium
     var size: MaskSize = .defaultSize
     var templeLength: Float?
     var bridgeWidth: Float?

@@ -22,10 +22,10 @@ extension SCNMaterial {
         diffuse.contents = UIImage(named: "art.scnassets/streakedmetal-albedo.png")
     }
 
-    func setMetalColor(color: MetalColor) {
+    func setMetalColor(color: MetalColor) {        
         metalness.contents = 1.0
         roughness.contents = 0.25
-//        roughness.contents = UIImage(named: "art.scnassets/noise_25%.png")
+        roughness.contents = UIImage(named: "art.scnassets/noise_25%.png")
         diffuse.contents = UIColor(named: color.rawValue)
 
         let transformScale: Float = 4

@@ -102,8 +102,15 @@ class NodeManager: NSObject {
         for maskModel in models {
             guard !maskModel.isFaceMesh else { continue }
             guard let maskNode = nodeForMaskModel[maskModel] as? GlassesNode else { continue }
+            log.debug("Resetting \(maskNode.name ?? "?")")
             maskNode.templeMode = .closed
             maskNode.isSittingOnFace = false
+            var currentModification = maskNode.modification
+            currentModification.metalColor = .turquoise
+            currentModification.templeMetalColor = .turquoise
+            currentModification.lensColor = models.firstIndex(of: maskModel) == 3 ? .shaded : .clear
+            maskNode.modification = currentModification
+
             rightOfScreen.addChildNode(maskNode)
         }
     }
@@ -134,7 +141,16 @@ class NodeManager: NSObject {
         } else {
             animateNewGlassesOn()
         }
-
+    }
+    
+    func animateColor(to color: MetalColor) {
+        guard let glasses = (contentUpdater.virtualFaceNode as? FaceMeshNode)?.glasses else {
+            log.warning("Expected glasses to be on the mask at this point!")
+            return
+        }
+        
+        glasses.modification.metalColor = color
+        glasses.modification.templeMetalColor = color
     }
         
     private func setupSpotLight(position: SCNVector3) {

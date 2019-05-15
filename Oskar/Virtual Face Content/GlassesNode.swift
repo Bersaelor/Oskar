@@ -234,7 +234,7 @@ class GlassesNode: SCNNode {
         addChildNode(faceOcclusionNode)
         // Add 3D content positioned as "glasses".
         addChildNode(glassesReferenceNode)
-        
+                
         setupMaterials()
         _ = defaultTempleDistance
         updateFrameMaterials()

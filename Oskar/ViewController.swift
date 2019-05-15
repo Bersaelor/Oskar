@@ -45,7 +45,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         viewModel.stepChanged = { [weak self] step in self?.stepChanged(to: step) }
         
-        nodes.createFaceGeometry()
         nodes.resetGlassesPositions()
 
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(handlePan(recognizer:)))
@@ -94,12 +93,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             nodes.resetGlassesPositions()
         case .kari, .hyperion, .neso:
             nodes.putOnFace(glassesName: step.rawValue)
+        case .colorA, .colorB, .colorC:
+            guard let color = step.metalColor else { return }
+            nodes.animateColor(to: color)
         case .startVideoRecording:
             startRecording()
         case .endRecording:
             stopRecording()
-        default:
-            break
         }
     }
     
