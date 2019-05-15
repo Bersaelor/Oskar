@@ -63,7 +63,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
          */
         UIApplication.shared.isIdleTimerDisabled = true
         
-        if !hasShownInfos {
+        if !hasShownInfos && !isDebugging {
             performSegue(withIdentifier: "presentInfos", sender: nil)
             hasShownInfos = true
         }

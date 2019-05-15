@@ -11,6 +11,7 @@ import SwiftyBeaver
 
 let log = SwiftyBeaver.self
 let oniPad = UIDevice.current.userInterfaceIdiom == .pad
+let isDebugging = ProcessInfo.processInfo.environment["debugger"] == "true"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
