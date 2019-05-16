@@ -15,7 +15,7 @@ extension matrix_float4x4 {
     }
     
     func forward() -> SCNVector3 {
-        let zVec = float4(0, 0, -1, 0)
+        let zVec = SIMD4<Float>(0, 0, -1, 0)
         let forward = self * zVec
         return SCNVector3(forward.x, forward.y, forward.z)
     }

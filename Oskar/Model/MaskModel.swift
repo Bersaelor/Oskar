@@ -65,32 +65,32 @@ extension MaskModel {
     var bridgeSizes: [Float] {
         guard let defaultSize = defaultBridgeSize else { return [] }
         let stepSize: Float = 1
-        let smallerSizes = (1 ... 5).map({ defaultSize - stepSize * Float($0) }).reversed()
-        let biggerSizes = (1 ... 5).map({ defaultSize + stepSize * Float($0) })
+        let smallerSizes: [Float] = (1 ... 5).map({ defaultSize - stepSize * Float($0) }).reversed()
+        let biggerSizes: [Float] = (1 ... 5).map({ defaultSize + stepSize * Float($0) })
         return smallerSizes + [defaultSize] + biggerSizes
     }
 
     var templeSizes: [Float] {
         guard let defaultSize = defaultTempleLength else { return [] }
         let stepSize: Float = 5
-        let smallerSizes = (1 ... 5).map({ defaultSize - stepSize * Float($0) }).reversed()
-        let biggerSizes = (1 ... 5).map({ defaultSize + stepSize * Float($0) })
+        let smallerSizes: [Float] = (1 ... 5).map({ defaultSize - stepSize * Float($0) }).reversed()
+        let biggerSizes: [Float] = (1 ... 5).map({ defaultSize + stepSize * Float($0) })
         return smallerSizes + [defaultSize] + biggerSizes
     }
     
     var glasWidths: [Float] {
         guard let defaultSize = defaultGlasWidth else { return [] }
         let stepSize: Float = 1
-        let smallerSizes = (1 ... 10).map({ defaultSize - stepSize * Float($0) }).reversed()
-        let biggerSizes = (1 ... 10).map({ defaultSize + stepSize * Float($0) })
+        let smallerSizes: [Float] = (1 ... 10).map({ defaultSize - stepSize * Float($0) }).reversed()
+        let biggerSizes: [Float] = (1 ... 10).map({ defaultSize + stepSize * Float($0) })
         return smallerSizes + [defaultSize] + biggerSizes
     }
     
     var glasHeights: [Float] {
         guard let defaultSize = defaultGlasHeight else { return [] }
         let stepSize: Float = 1
-        let smallerSizes = (1 ... 10).map({ defaultSize - stepSize * Float($0) }).reversed()
-        let biggerSizes = (1 ... 10).map({ defaultSize + stepSize * Float($0) })
+        let smallerSizes: [Float] = (1 ... 10).map({ defaultSize - stepSize * Float($0) }).reversed()
+        let biggerSizes: [Float] = (1 ... 10).map({ defaultSize + stepSize * Float($0) })
         return smallerSizes + [defaultSize] + biggerSizes
     }
 }
