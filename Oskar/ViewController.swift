@@ -68,6 +68,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             hasShownInfos = true
         }
         
+        nodes.resetGlassesPositions()
+        
         resetTracking()
     }
     
@@ -156,7 +158,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         recorder.isMicrophoneEnabled = true
         log.debug("isMicrophoneEnabled: \(recorder.isMicrophoneEnabled)")
         recorder.startRecording { (error) in
-            log.debug("Recording handler called with \(String(describing: error))")
             if let error = error {
                 log.error("Failed to start recording due to \(error)")
                 self.isRecording = false
