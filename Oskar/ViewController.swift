@@ -74,6 +74,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         resetTracking()
     }
     
+    private let audioPlayer: AVAudioPlayer = {
+        let filePath = Bundle.main.path(forResource: "voiceover.mp3", ofType: nil)
+        let url = URL(fileURLWithPath: filePath!)
+        return try! AVAudioPlayer(contentsOf: url)
+    }()
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -88,9 +94,35 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             log.debug("\(oldValue) -> \(isRecording)")
             DispatchQueue.main.async {
                 self.recordingLabel.isHidden = self.isRecording
+                if !oldValue && self.isRecording {
+                    self.startPlayingVoiceover()
+                } else {
+                    self.stopAudio()
+                }
             }
         }
     }
+    
+    private func startPlayingVoiceover() {
+        guard UserDefaults.standard.bool(forKey: "enable_voice_over_play") else {
+            log.debug("Not playing audio")
+            return
+        }
+        
+        if audioPlayer.isPlaying {
+            audioPlayer.stop()
+        }
+        
+        audioPlayer.currentTime = 0
+        audioPlayer.play()
+    }
+    
+    private func stopAudio() {
+        if audioPlayer.isPlaying {
+            audioPlayer.stop()
+        }
+    }
+    
     
     private func stepChanged(to step: VideoStep) {
         log.debug("newStep: \(step)")

@@ -40,6 +40,8 @@
 		71585558228AF149005B6618 /* Models.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71585557228AF149005B6618 /* Models.plist */; };
 		7158555A228AF337005B6618 /* SCNMaterial+LensColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */; };
 		7158555C228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7158555B228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift */; };
+		71CA3AC122BD277300DC26F9 /* voiceover.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 71CA3AC022BD277300DC26F9 /* voiceover.mp3 */; };
+		71CA3AC322BD280C00DC26F9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 71CA3AC222BD280C00DC26F9 /* Settings.bundle */; };
 		71F858A5228C6623007CB112 /* GrafixColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F858A4228C6623007CB112 /* GrafixColors.xcassets */; };
 		71F858A7228C8A32007CB112 /* Smoother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F858A6228C8A32007CB112 /* Smoother.swift */; };
 /* End PBXBuildFile section */
@@ -81,6 +83,8 @@
 		71585557228AF149005B6618 /* Models.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Models.plist; sourceTree = "<group>"; };
 		71585559228AF337005B6618 /* SCNMaterial+LensColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNMaterial+LensColor.swift"; sourceTree = "<group>"; };
 		7158555B228B0B1E005B6618 /* UIInterfaceOrientation+DebugStringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIInterfaceOrientation+DebugStringConvertible.swift"; sourceTree = "<group>"; };
+		71CA3AC022BD277300DC26F9 /* voiceover.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voiceover.mp3; sourceTree = "<group>"; };
+		71CA3AC222BD280C00DC26F9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		71F858A4228C6623007CB112 /* GrafixColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = GrafixColors.xcassets; sourceTree = "<group>"; };
 		71F858A6228C8A32007CB112 /* Smoother.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Smoother.swift; sourceTree = "<group>"; };
 		7AB863BE7770AF24FB878263 /* Pods-Oskar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oskar.release.xcconfig"; path = "Target Support Files/Pods-Oskar/Pods-Oskar.release.xcconfig"; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 				71585517228AE049005B6618 /* ViewController.swift */,
 				71585529228AE33A005B6618 /* ViewModel.swift */,
 				71585527228AE314005B6618 /* NodeManager.swift */,
+				71CA3AC022BD277300DC26F9 /* voiceover.mp3 */,
 				7158555D228B19C6005B6618 /* Virtual Face Content */,
 				7158553E228AE777005B6618 /* Model */,
 				71585533228AE4E7005B6618 /* Extensions */,
@@ -150,6 +155,7 @@
 				71585557228AF149005B6618 /* Models.plist */,
 				7158551E228AE04A005B6618 /* LaunchScreen.storyboard */,
 				71585521228AE04A005B6618 /* Info.plist */,
+				71CA3AC222BD280C00DC26F9 /* Settings.bundle */,
 			);
 			path = Oskar;
 			sourceTree = "<group>";
@@ -259,9 +265,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71CA3AC322BD280C00DC26F9 /* Settings.bundle in Resources */,
 				71585558228AF149005B6618 /* Models.plist in Resources */,
 				71585516228AE049005B6618 /* art.scnassets in Resources */,
 				71F858A5228C6623007CB112 /* GrafixColors.xcassets in Resources */,
+				71CA3AC122BD277300DC26F9 /* voiceover.mp3 in Resources */,
 				71585520228AE04A005B6618 /* LaunchScreen.storyboard in Resources */,
 				7158551D228AE04A005B6618 /* Assets.xcassets in Resources */,
 				7158551B228AE049005B6618 /* Main.storyboard in Resources */,
