@@ -19,15 +19,15 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arscnView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" id="rJc-2c-zQA"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leading" id="GsS-dJ-CKf"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="U0K-SW-4ec" secondAttribute="bottom" id="VpT-BR-CcM"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="U0K-SW-4ec" secondAttribute="trailing" id="XyZ-9z-H8e"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
@@ -76,7 +76,7 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="EOZ-qH-a6m">
                                         <rect key="frame" x="0.0" y="21.5" width="414" height="752.5"/>
                                         <color key="backgroundColor" red="0.788582805" green="0.788582805" blue="0.788582805" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <mutableString key="text">Zuerst bitte sicher stellen, das der Ringer/Stummmodus am Telefon aus ist. Sonst wird das erstellte Video keinen Audio-Kanal haben.  Durch Swipen/Wischen auf dem Bildschirm lässt sich der Winkel des Gesichtes wie gewünscht einstellen.  Das Video besteht aus einzelnen Schritten, während denen der Nutzer ein Script ablesen kann. Durch Tippen auf den Bildschirm geht es weiter:  (1) Video-Aufnahme startet (2) Maske setzt Neso-Brille auf (3) Maske setzt Hyperion-Brille auf (4) Maske setzt Kari-Brille auf (5) Brille wechselt Farbe (6) Brille wechselt Farbe (7) Brille wechselt Farbe (8) Video Aufnahme endet und kann exportiert werden. </mutableString>
+                                        <string key="text">Zuerst bitte sicher stellen, das der Ringer/Stummmodus am Telefon aus ist. Sonst wird das erstellte Video keinen Audio-Kanal haben.  Durch Swipen/Wischen auf dem Bildschirm lässt sich der Winkel des Gesichtes wie gewünscht einstellen.  Das Video besteht aus einzelnen Schritten, während denen der Nutzer ein Script ablesen kann. Durch Tippen auf den Bildschirm geht es weiter:  (1) Video-Aufnahme startet (2) Maske setzt Neso-Brille auf (3) Maske setzt Hyperion-Brille auf (4) Maske setzt Kari-Brille auf (5) Brille wechselt Farbe (6) Brille wechselt Farbe (7) Brille wechselt Farbe (8) Video Aufnahme endet und kann exportiert werden. </string>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
