@@ -16,7 +16,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     // MARK: Outlets
 
     @IBOutlet var sceneView: ARSCNView!
-    
+    @IBOutlet weak var recordingLabel: UILabel!
+
     // MARK: Properties
     
     private let viewModel = ViewModel()
@@ -85,6 +86,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         didSet {
             guard oldValue != isRecording else { return }
             log.debug("\(oldValue) -> \(isRecording)")
+            DispatchQueue.main.async {
+                self.recordingLabel.isHidden = self.isRecording
+            }
         }
     }
     
