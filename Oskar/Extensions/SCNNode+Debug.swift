@@ -29,4 +29,14 @@ extension SCNNode {
             node.forEachChild(execute: execute)
         }
     }
+    
+    static func setupMaterialTestBall(in node: SCNNode, position: SCNVector3 = SCNVector3(0, 0, 0.1)) {
+        let sphere = SCNSphere(radius: 1 * 0.01)
+        sphere.firstMaterial?.setChrome()
+        sphere.firstMaterial?.lightingModel = .physicallyBased
+        let testBall = SCNNode(geometry: sphere)
+        testBall.position = position
+//        testBall.categoryBitMask = NodeManager.spotLight2Mask
+        node.addChildNode(testBall)
+    }
 }

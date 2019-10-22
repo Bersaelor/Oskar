@@ -87,8 +87,8 @@ class NodeManager: NSObject {
         sceneView.delegate = contentUpdater
         sceneView.automaticallyUpdatesLighting = false
         sceneView.autoenablesDefaultLighting = false
-        sceneView.scene.lightingEnvironment.contents = UIImage(named: "art.scnassets/lobby.jpg")
-        sceneView.scene.lightingEnvironment.intensity = 2.0
+        sceneView.scene.lightingEnvironment.contents = UIImage(named: "art.scnassets/PP43E9.jpg")
+        sceneView.scene.lightingEnvironment.intensity = 1.0
         pointOfView = sceneView.pointOfView
         contentUpdater.createExhibitionNodes(from: pointOfView)
         setupWall()
@@ -136,6 +136,8 @@ class NodeManager: NSObject {
             faceMeshNode.glasses = glassesNode
             self.animateParentNode(of: glassesNode, to: faceMeshNode)
         }
+        
+        glassesNode.debugNodeChildren()
         
         // remove glasses on face and move them to the left of the screen
         if let oldGlasses = faceMeshNode.glasses {
@@ -203,7 +205,7 @@ class NodeManager: NSObject {
     }
     
     private func updateLight(lightEstimate: ARLightEstimate) {
-        scene?.lightingEnvironment.intensity = 2 * lightEstimate.ambientIntensity / 1000.0
+        scene?.lightingEnvironment.intensity = 0.1 * lightEstimate.ambientIntensity / 1000.0
         [ambientLight, spotLight, spotLight2].forEach { (light) in
             light?.temperature = lightEstimate.ambientColorTemperature
         }
@@ -222,21 +224,21 @@ class NodeManager: NSObject {
     }
     
     private func staticLight() {
-        scene?.lightingEnvironment.intensity = 3.5
-        [ambientLight, spotLight, spotLight2].forEach { $0?.temperature = 6019.88 }
-        ambientLight?.intensity = 150
+        scene?.lightingEnvironment.intensity = 1.5
+        [ambientLight, spotLight, spotLight2].forEach { $0?.temperature = 6519.88 }
+        ambientLight?.intensity = 1
         
-        spotLight?.intensity = 6 // 268
+        spotLight?.intensity = 1 // 268
         spotLightNode?.position = SCNVector3(-0.02, 1.0, 1.0)
         spotLightNode?.eulerAngles = SCNVector3(-32 * Float.pi / 180, 0, 0)
 
-        spotLight2?.intensity = 19 // 268
+        spotLight2?.intensity = 1 // 268
         spotLightNode2?.position = SCNVector3(-0.02, -0.25, 1.0)
         spotLightNode2?.eulerAngles = SCNVector3(15 * Float.pi / 180, 0, 0)
     }
     
     private func setupWall() {
-        wallNode.position = SCNVector3(x: 0, y: -0.15, z: -0.15)
+        wallNode.position = SCNVector3(x: 0, y: -0.15, z: -0.05)
         pointOfView?.addChildNode(wallNode)
         wallNode.categoryBitMask = ~NodeManager.spotLight2Mask
         
@@ -244,9 +246,9 @@ class NodeManager: NSObject {
         
         let material = SCNMaterial()
         material.lightingModel = .physicallyBased
-        material.metalness.contents = 0.0
+        material.metalness.contents = 0.5
         material.diffuse.contents = UIColor.init(white: 0.99, alpha: 1.0)
-        material.roughness.contents = 0.5
+        material.roughness.contents = 0.25
         material.normal.contents = UIImage(named: "art.scnassets/plastic-normal_smooth.jpg")
         material.normal.contentsTransform = SCNMatrix4MakeScale(0.001, 0.001, 0.001)
         wallNode.geometry?.materials = [material]
