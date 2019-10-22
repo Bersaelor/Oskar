@@ -129,7 +129,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         switch step {
         case .idle:
             nodes.resetGlassesPositions()
-        case .kari, .hyperion, .neso:
+        case .bor, .sami, .skoll:
             nodes.putOnFace(glassesName: step.rawValue)
         case .colorA, .colorB, .colorC:
             guard let color = step.metalColor else { return }

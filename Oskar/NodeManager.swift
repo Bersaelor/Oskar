@@ -109,8 +109,16 @@ class NodeManager: NSObject {
             maskNode.templeMode = .closed
             maskNode.isSittingOnFace = false
             var currentModification = maskNode.modification
-            currentModification.metalColor = .turquoise
-            currentModification.templeMetalColor = .turquoise
+            if maskModel.displayName == "Skoll" {
+                currentModification.metalColor = .purple
+                currentModification.templeMetalColor = .purple
+            } else if maskModel.displayName == "Sami" {
+                currentModification.metalColor = .limone
+                currentModification.templeMetalColor = .limone
+            } else if maskModel.displayName == "Bor" {
+                currentModification.metalColor = .pink
+                currentModification.templeMetalColor = .pink
+            }
             currentModification.lensColor = models.firstIndex(of: maskModel) == 3 ? .shaded : .clear
             maskNode.modification = currentModification
 
@@ -136,9 +144,7 @@ class NodeManager: NSObject {
             faceMeshNode.glasses = glassesNode
             self.animateParentNode(of: glassesNode, to: faceMeshNode)
         }
-        
-        glassesNode.debugNodeChildren()
-        
+                
         // remove glasses on face and move them to the left of the screen
         if let oldGlasses = faceMeshNode.glasses {
             animateParentNode(of: oldGlasses, to: leftOfScreen)
@@ -204,28 +210,9 @@ class NodeManager: NSObject {
         ambientLightNode = lightNode
     }
     
-    private func updateLight(lightEstimate: ARLightEstimate) {
-        scene?.lightingEnvironment.intensity = 0.1 * lightEstimate.ambientIntensity / 1000.0
-        [ambientLight, spotLight, spotLight2].forEach { (light) in
-            light?.temperature = lightEstimate.ambientColorTemperature
-        }
-        ambientLight?.intensity = lightEstimate.ambientIntensity / 3
-        
-        guard let directionalLightEstimate = lightEstimate as? ARDirectionalLightEstimate else {
-            // usually ambientColorTemperature is about twice as big as primaryLightIntensity
-            spotLight?.intensity = lightEstimate.ambientIntensity / 4
-            return
-        }
-
-        spotLight?.intensity = directionalLightEstimate.primaryLightIntensity / 8
-        spotLightNode?.position = SCNVector3(directionalLightEstimate.primaryLightDirection.x,
-                                             directionalLightEstimate.primaryLightDirection.y,
-                                             directionalLightEstimate.primaryLightDirection.z) * -4
-    }
-    
     private func staticLight() {
         scene?.lightingEnvironment.intensity = 1.6
-        [ambientLight, spotLight, spotLight2].forEach { $0?.temperature = 6519.88 }
+        [ambientLight, spotLight, spotLight2].forEach { $0?.temperature = 8000 }
         ambientLight?.intensity = 1
         
         spotLight?.intensity = 2 // 268

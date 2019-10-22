@@ -28,9 +28,9 @@ class ViewModel {
 enum VideoStep: String {
     case idle
     case startVideoRecording
-    case neso
-    case hyperion
-    case kari
+    case skoll
+    case sami
+    case bor
     case colorA
     case colorB
     case colorC
@@ -39,9 +39,9 @@ enum VideoStep: String {
     static var all: [VideoStep] = [
         .idle,
         .startVideoRecording,
-        .neso,
-        .hyperion,
-        .kari,
+        .skoll,
+        .sami,
+        .bor,
         .colorA,
         .colorB,
         .colorC,
@@ -51,7 +51,7 @@ enum VideoStep: String {
     var metalColor: MetalColor? {
         switch self {
         case .colorA: return .titanium
-        case .colorB: return .purple
+        case .colorB: return .turquoise
         case .colorC: return .goldPBR
         default: return nil
         }
