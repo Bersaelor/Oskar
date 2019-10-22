@@ -164,14 +164,14 @@ class NodeManager: NSObject {
         [spotLight, spotLight2].forEach { (light) in
             light?.type = SCNLight.LightType.spot
             light?.spotInnerAngle = 0
-            light?.spotOuterAngle = 23
+            light?.spotOuterAngle = 60
         }
         spotLight?.castsShadow = true
         spotLight?.shadowMode = .forward
         spotLight?.shadowRadius = 10
         spotLight?.shadowSampleCount = 12
         spotLight?.shadowMapSize = CGSize(width: 500, height: 500)
-        spotLight?.shadowColor = UIColor.init(white: 0.05, alpha: 0.6).cgColor
+        spotLight?.shadowColor = UIColor.init(white: 0.05, alpha: 1).cgColor
 
         spotLight2?.categoryBitMask = NodeManager.spotLight2Mask
         
@@ -224,11 +224,11 @@ class NodeManager: NSObject {
     }
     
     private func staticLight() {
-        scene?.lightingEnvironment.intensity = 1.5
+        scene?.lightingEnvironment.intensity = 1.6
         [ambientLight, spotLight, spotLight2].forEach { $0?.temperature = 6519.88 }
         ambientLight?.intensity = 1
         
-        spotLight?.intensity = 1 // 268
+        spotLight?.intensity = 2 // 268
         spotLightNode?.position = SCNVector3(-0.02, 1.0, 1.0)
         spotLightNode?.eulerAngles = SCNVector3(-32 * Float.pi / 180, 0, 0)
 
@@ -248,9 +248,7 @@ class NodeManager: NSObject {
         material.lightingModel = .physicallyBased
         material.metalness.contents = 0.5
         material.diffuse.contents = UIColor.init(white: 0.99, alpha: 1.0)
-        material.roughness.contents = 0.25
-        material.normal.contents = UIImage(named: "art.scnassets/plastic-normal_smooth.jpg")
-        material.normal.contentsTransform = SCNMatrix4MakeScale(0.001, 0.001, 0.001)
+        material.roughness.contents = 0.5
         wallNode.geometry?.materials = [material]
     }
     
