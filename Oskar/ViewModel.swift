@@ -50,9 +50,9 @@ enum VideoStep: String {
     
     var metalColor: MetalColor? {
         switch self {
-        case .colorA: return .titanium
+        case .colorA: return .black
         case .colorB: return .turquoise
-        case .colorC: return .goldPBR
+        case .colorC: return .titanium
         default: return nil
         }
     }
